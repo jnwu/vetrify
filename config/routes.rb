@@ -1,4 +1,5 @@
 Vetrify::Application.routes.draw do
+  root to: 'pages#main'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -39,7 +40,7 @@ Vetrify::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

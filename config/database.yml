@@ -7,32 +7,32 @@
 development:
   adapter: postgresql
   encode: unicode
-  host: ec2-54-235-78-155.compute-1.amazonaws.com
-  database: d8149tmflo5qjh
+  host: ec2-54-204-35-114.compute-1.amazonaws.com
+  database: d58u6urdvtkreb
   port: 5432
-  username: crpuamfqmjqrfd
-  password: _tTTmVeHIynTOtW4JWgkGax6IW
+  username: jqmeesjynxwmrx
+  password: MSblVa3BrLiEl1qEQd_onagHQM
   pool: 5
   timeout: 5000
 
-linkedin:
+test:
   adapter: postgresql
   encode: unicode
-  host: ec2-23-23-177-33.compute-1.amazonaws.com
-  database: d31mq2fgobhnk
+  host: ec2-54-204-35-114.compute-1.amazonaws.com
+  database: d58u6urdvtkreb
   port: 5432
-  username: jslsezphpapxtd
-  password: 06uNad4DWGmDsymTlP8aRw88zY
+  username: jqmeesjynxwmrx
+  password: MSblVa3BrLiEl1qEQd_onagHQM
   pool: 5
   timeout: 5000
 
 production:
   adapter: postgresql
   encode: unicode
-  host: ec2-54-204-47-58.compute-1.amazonaws.com
-  database: d3bav596gcla5n
+  host: ec2-54-204-47-70.compute-1.amazonaws.com
+  database: d89t84la3qjd8p
   port: 5432
-  username: glmdhwtywtuqop
-  password: BXJqJGjC1qS-bGCVPvovWmVmDJ
+  username: lhuvegonbxjxmy
+  password: kBCzFr6MXYbBOIQSxj9OSpskA2
   pool: 5
   timeout: 5000

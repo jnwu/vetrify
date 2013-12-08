@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  company_type: MyString
+  founded_year: 1
+  status: MyString
+  location: MyString
+  size: 1
+  specialties: MyString
+  domain: MyString
+  url: MyString
+  linkedin: MyString

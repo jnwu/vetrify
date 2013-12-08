@@ -6,6 +6,17 @@ gem 'rails', '4.0.0'
 # Use unicorn web server
 gem 'unicorn'
 
+group :development do
+  gem 'pry-rails'
+  gem 'pry-debugger'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
+group :test do
+	gem 'mysql'
+end
+
 # Use Postgress SQL
 gem 'pg'
 

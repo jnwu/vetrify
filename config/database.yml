@@ -16,13 +16,13 @@ development:
   timeout: 5000
 
 test:
-  adapter: postgresql
+  adapter: mysql
   encode: unicode
-  host: ec2-54-204-35-114.compute-1.amazonaws.com
-  database: d58u6urdvtkreb
-  port: 5432
-  username: jqmeesjynxwmrx
-  password: MSblVa3BrLiEl1qEQd_onagHQM
+  host: localhost
+  database: cookiebutter
+  port: 3306
+  username: root
+  password:
   pool: 5
   timeout: 5000
 

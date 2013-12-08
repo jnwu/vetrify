@@ -1,4 +1,14 @@
 Vetrify::Application.routes.draw do
+  resources :questions
+
+  resources :posts
+
+  resources :companies
+
+  resources :videos
+
+  resources :profiles
+
   root to: 'pages#main'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

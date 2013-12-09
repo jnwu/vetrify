@@ -11,9 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208034346) do
+ActiveRecord::Schema.define(version: 20131208231706) do
 
-  create_table "companies", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "business_users", force: true do |t|
+    t.string "email"
+    t.string "name"
+    t.string "password"
+    t.string "title"
+  end
+
+  create_table "businesses", force: true do |t|
     t.string   "name"
     t.string   "company_type",   null: false
     t.integer  "founded_year",   null: false
@@ -33,7 +43,17 @@ ActiveRecord::Schema.define(version: 20131208034346) do
     t.datetime "updated_at"
   end
 
-  add_index "companies", ["name"], name: "index_companies_on_name", unique: true, using: :btree
+  add_index "businesses", ["name"], name: "index_businesses_on_name", unique: true, using: :btree
+
+  create_table "keys", force: true do |t|
+    t.string   "api",        null: false
+    t.string   "tag",        null: false
+    t.string   "key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "keys", ["key"], name: "index_keys_on_key", unique: true, using: :btree
 
   create_table "posts", force: true do |t|
     t.integer  "company_id"

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BusinessesControllerTest < ActionController::TestCase
   setup do
-    @business = businesses(:one)
+    @business = FactoryGirl.create(:business)
   end
 
   test "should get index" do
@@ -17,11 +17,11 @@ class BusinessesControllerTest < ActionController::TestCase
   end
 
   test "should create business" do
-    #assert_difference('business.count') do
-    #  post :create, business: { name: @business.name, business_type: @business.business_type, founded_year: @business.founded_year, status: @business.status, location: @business.location, size: @business.size, specialties: @business.specialties, domain: @business.domain, url: @business.url, linkedin: @business.linkedin }
-    #end
-    #
-    #assert_redirected_to business_path(assigns(:business))
+    assert_difference('Business.count') do
+     post :create, business: FactoryGirl.attributes_for(:business)
+    end
+
+    assert_redirected_to business_path(assigns(:business))
   end
 
   test "should show business" do

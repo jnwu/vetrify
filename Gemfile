@@ -14,7 +14,11 @@ group :development do
 end
 
 group :test do
+  gem "factory_girl_rails", "~> 4.0"
 	gem 'mysql'
+  gem 'ffaker'
+  gem 'pry-rails'
+  gem 'pry-debugger'
 end
 
 # Use Postgress SQL

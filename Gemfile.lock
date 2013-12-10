@@ -59,6 +59,12 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
+    factory_girl (4.3.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.3.0)
+      factory_girl (~> 4.3.0)
+      railties (>= 3.0.0)
+    ffaker (1.22.1)
     haml (4.0.3)
       tilt
     hike (1.2.3)
@@ -160,6 +166,8 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass (~> 3.0.2.0)
   coffee-rails (~> 4.0.0)
+  factory_girl_rails (~> 4.0)
+  ffaker
   haml
   jbuilder (~> 1.2)
   jquery-rails

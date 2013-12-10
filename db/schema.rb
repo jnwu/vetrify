@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208231706) do
+ActiveRecord::Schema.define(version: 20131210220826) do
 
   # These are extensions that must be enabled in order to support this database
-  # enable_extension "plpgsql"
+  enable_extension "plpgsql"
 
   create_table "business_users", force: true do |t|
     t.string "email"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20131208231706) do
   add_index "keys", ["key"], name: "index_keys_on_key", unique: true, using: :btree
 
   create_table "posts", force: true do |t|
-    t.integer  "company_id"
+    t.integer  "business_id"
     t.string   "position",        null: false
     t.text     "summary",         null: false
     t.text     "desired_skills"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20131208231706) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["company_id"], name: "index_posts_on_company_id", using: :btree
+  add_index "posts", ["business_id"], name: "index_posts_on_business_id", using: :btree
 
   create_table "posts_profiles", id: false, force: true do |t|
     t.integer "profile_id", null: false

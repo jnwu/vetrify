@@ -21,7 +21,9 @@ class SessionsControllerTest < ActionController::TestCase
 
 
   test "should logout user" do
-    true
+    post :destroy
+
+    assert_equal nil, session[:user_id]
   end
 
 

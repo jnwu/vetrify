@@ -1,0 +1,14 @@
+.modal.fade#myModal{ tabindex="-1" role="dialog" aria-labelledby="myModalLabel" "aria-hidden"=>true}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ type=>"button", "data-dismiss"=>"modal", "aria-hidden"=>true}
+        %h4.modal-title#myModalLabel
+          Modal title
+
+
+      .modal-body
+        My awesome Text!
+      .modal-footer
+        %button{ type="button" class="btn btn-default" data-dismiss="modal"}
+          Close

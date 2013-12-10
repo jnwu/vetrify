@@ -1,4 +1,4 @@
-class Company < ActiveRecord::Base
+class Business < ActiveRecord::Base
 	has_many :skillgroups, as: :skillable
 	has_many :skills, through: :skillgroups
 

@@ -1,9 +1,12 @@
 Vetrify::Application.routes.draw do
+
+  resource :sessions, only: [:new, :create, :destroy]
+
   resources :questions
 
   resources :posts
 
-  resources :companies
+  resources :businesses
 
   resources :videos
 

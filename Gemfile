@@ -23,9 +23,6 @@ gem 'pg', '~> 0.17.0'
 # Use AMQP for communication with pandastream
 gem 'amqp', '~> 1.1.5'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -33,7 +30,13 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 gem 'haml'
-gem 'sass'
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.0'
+
+# for twitter bootstrap
+gem 'bootstrap-sass', '~> 3.0.2.0'
+
 gem 'nori'
 gem 'nokogiri'
 
@@ -55,7 +58,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'

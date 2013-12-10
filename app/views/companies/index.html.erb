@@ -1,4 +1,4 @@
-<h1>Listing companies</h1>
+<h1>Listing businesses</h1>
 
 <table>
   <thead>
@@ -11,12 +11,12 @@
   </thead>
 
   <tbody>
-    <% @companies.each do |company| %>
+    <% @businesses.each do |business| %>
       <tr>
-        <td><%= company.name %></td>
-        <td><%= link_to 'Show', company %></td>
-        <td><%= link_to 'Edit', edit_company_path(company) %></td>
-        <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= business.name %></td>
+        <td><%= link_to 'Show', business %></td>
+        <td><%= link_to 'Edit', edit_business_path(business) %></td>
+        <td><%= link_to 'Destroy', business, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Company', new_company_path %>
+<%= link_to 'New business', new_business_path %>

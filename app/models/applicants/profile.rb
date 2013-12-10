@@ -4,5 +4,10 @@ class Profile < ActiveRecord::Base
 
 	has_many :videos
 
-    has_and_belongs_to_many :posts	
+  has_and_belongs_to_many :posts
+
+  def name
+    "#{first_name} #{last_name}".strip
+  end
+
 end

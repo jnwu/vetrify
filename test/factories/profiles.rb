@@ -1,4 +1,7 @@
-# one:
-#   first_name: MyString
-#   last_name: MyString
-#   email: MyString
+FactoryGirl.define do
+  factory :profile do
+    first_name  { Faker::Name.first_name  }
+    last_name   { Faker::Name.last_name   }
+    email       { Faker::Internet.email   }
+  end
+end

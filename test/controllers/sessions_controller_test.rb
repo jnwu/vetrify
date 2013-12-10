@@ -2,9 +2,6 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
 
-
-
-
   test "should sign in business user" do
     @user = FactoryGirl.create(:business_user)
     post :create, user_type: "business_user", email: @user.email, password: @user.password
@@ -18,7 +15,6 @@ class SessionsControllerTest < ActionController::TestCase
 
     assert_equal @user.id, session[:user_id]
   end
-
 
   test "should logout user" do
     post :destroy

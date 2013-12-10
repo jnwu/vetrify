@@ -1,6 +1,7 @@
-# # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-# one:
-#   profile_id:
-#   pandastream_id: MyString
-#   url: MyString
+FactoryGirl.define do
+  factory :video do
+    association       :profile, factory: :profile
+    pandastream_id    "MyPandaId"
+    url               { Faker::Internet.domain_name }
+  end
+end

@@ -6,6 +6,12 @@ class Profile < ActiveRecord::Base
 
   has_and_belongs_to_many :posts
 
+  has_secure_password
+
+  validates :email, presence: true
+  validates :name, presence: true
+  validates :password, length: { in: 6..20 }, on: :create
+
   def name
     "#{first_name} #{last_name}".strip
   end

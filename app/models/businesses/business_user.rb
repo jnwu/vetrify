@@ -1,4 +1,5 @@
 class BusinessUser < ActiveRecord::Base
+  belongs_to :business
 
   has_secure_password
 

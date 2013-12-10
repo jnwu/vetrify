@@ -1,26 +1,28 @@
-# require 'test_helper'
+require 'test_helper'
 
-# class SessionsControllerTest < ActionController::TestCase
-
-#   context "create action" do
-#     setup do
-
-#     end
+class SessionsControllerTest < ActionController::TestCase
 
 
-#     test "should sign in business user" do
-#       true
-#     end
 
-#     test "should sign in normal user" do
-#       true
-#     end
-#   end
 
-#   context "destroy action" do
-#     test "should destroy business" do
-#       true
-#     end
-#   end
+  test "should sign in business user" do
+    @user = FactoryGirl.create(:business_user)
+    post :create, user_type: "business_user", email: @user.email, password: @user.password
 
-# end
+    assert_equal @user.id, session[:user_id]
+  end
+
+  test "should sign in normal user" do
+    @user = FactoryGirl.create(:profile)
+    post :create, user_type: "applicant", email: @user.email, password: @user.password
+
+    assert_equal @user.id, session[:user_id]
+  end
+
+
+  test "should logout user" do
+    true
+  end
+
+
+end

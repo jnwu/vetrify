@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if params[:user_tyoe] == "business_user"
+    if params[:user_type] == "business_user"
       user = BusinessUser.find_by_email(params[:email])
     else
       user = Profile.find_by_email(params[:email])
@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to admin_root_path, :notice => "Welcome back, #{user.name}"
+      redirect_to root_path, :notice => "Welcome back, #{user.name}"
     else
       flash.now.alert = "Invalid email or password"
       render :new
@@ -23,11 +23,4 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     redirect_to root_url, :notice => "Logged out!"
   end
-
-private
-
-  def try_auth user
-
-  end
-
 end

@@ -35,7 +35,7 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should update post" do
-    patch :update, id: @post, post: { company_id: @post.company_id, desired_skills: @post.desired_skills, expected_skills: @post.expected_skills, expire_at: @post.expire_at, position: @post.position, start_at: @post.start_at, summary: @post.summary }
+    patch :update, id: @post, post: FactoryGirl.attributes_for(:post)
     assert_redirected_to post_path(assigns(:post))
   end
 

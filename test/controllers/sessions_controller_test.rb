@@ -16,6 +16,13 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal @user.id, session[:user_id]
   end
 
+  test "should not sign in with incorrect password" do
+    @user = FactoryGirl.create(:profile)
+    post :create, user_type: "applicant", email: @user.email, password: "blank"
+
+    assert_equal nil, session[:user_id]
+  end
+
   test "should logout user" do
     post :destroy
 

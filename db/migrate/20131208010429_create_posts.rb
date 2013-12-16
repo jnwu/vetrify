@@ -1,7 +1,7 @@
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
-      t.belongs_to :company, index: true
+      t.belongs_to :business, index: true
       t.string :position, null: false
       t.text :summary, null: false
       t.text :desired_skills

@@ -1,5 +1,9 @@
 Vetrify::Application.routes.draw do
 
+  resources :business_users
+
+  resources :applicants
+
   resource :sessions, only: [:new, :create, :destroy]
 
   resources :questions
@@ -9,8 +13,6 @@ Vetrify::Application.routes.draw do
   resources :businesses
 
   resources :videos
-
-  resources :profiles
 
   root to: 'pages#main'
   # The priority is based upon order of creation: first created -> highest priority.

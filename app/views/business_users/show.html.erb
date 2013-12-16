@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Business:</strong>
+  <%= @business_user.business %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @business_user.email %>
+</p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @business_user.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @business_user.last_name %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @business_user.title %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @business_user.password %>
+</p>
+
+<p>
+  <strong>Password digest:</strong>
+  <%= @business_user.password_digest %>
+</p>
+
+<%= link_to 'Edit', edit_business_user_path(@business_user) %> |
+<%= link_to 'Back', business_users_path %>

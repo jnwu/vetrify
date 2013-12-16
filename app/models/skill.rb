@@ -1,4 +1,4 @@
 class Skill < ActiveRecord::Base
-	has_many :profiles
-	has_many :profiles, through: :skillgroups
+	has_many :skillables
+	has_many :skillables, through: :skillgroups
 end

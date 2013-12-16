@@ -11,25 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131210231258) do
+ActiveRecord::Schema.define(version: 20131216050925) do
 
   # These are extensions that must be enabled in order to support this database
-  # enable_extension "plpgsql"
+  enable_extension "plpgsql"
+
+  create_table "applicants", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "password"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "applicants", ["email"], name: "index_applicants_on_email", unique: true, using: :btree
+
+  create_table "applicants_posts", id: false, force: true do |t|
+    t.integer "applicant_id", null: false
+    t.integer "post_id",      null: false
+  end
 
   create_table "business_users", force: true do |t|
-    t.string  "email"
-    t.string  "name"
-    t.string  "password"
-    t.string  "title"
-    t.integer "business_id"
-    t.string  "password_digest"
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "title"
+    t.string   "password"
+    t.string   "password_digest"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "business_users", ["business_id"], name: "index_business_users_on_business_id", using: :btree
+  add_index "business_users", ["email"], name: "index_business_users_on_email", unique: true, using: :btree
 
   create_table "businesses", force: true do |t|
     t.string   "name"
-    t.string   "company_type",   null: false
+    t.string   "business_type",  null: false
     t.integer  "founded_year",   null: false
     t.string   "status",         null: false
     t.string   "location",       null: false
@@ -72,23 +93,6 @@ ActiveRecord::Schema.define(version: 20131210231258) do
   end
 
   add_index "posts", ["business_id"], name: "index_posts_on_business_id", using: :btree
-
-  create_table "posts_profiles", id: false, force: true do |t|
-    t.integer "profile_id", null: false
-    t.integer "post_id",    null: false
-  end
-
-  create_table "profiles", force: true do |t|
-    t.string   "first_name",      null: false
-    t.string   "last_name",       null: false
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "password_digest"
-    t.string   "password"
-  end
-
-  add_index "profiles", ["email"], name: "index_profiles_on_email", unique: true, using: :btree
 
   create_table "questions", force: true do |t|
     t.integer  "post_id"
@@ -142,15 +146,15 @@ ActiveRecord::Schema.define(version: 20131210231258) do
   end
 
   create_table "videos", force: true do |t|
-    t.integer  "profile_id"
+    t.integer  "applicant_id"
     t.string   "pandastream_id", null: false
     t.string   "url",            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "videos", ["applicant_id"], name: "index_videos_on_applicant_id", using: :btree
   add_index "videos", ["pandastream_id"], name: "index_videos_on_pandastream_id", unique: true, using: :btree
-  add_index "videos", ["profile_id"], name: "index_videos_on_profile_id", using: :btree
   add_index "videos", ["url"], name: "index_videos_on_url", unique: true, using: :btree
 
 end

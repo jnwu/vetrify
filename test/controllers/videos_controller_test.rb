@@ -18,7 +18,7 @@ class VideosControllerTest < ActionController::TestCase
 
   test "should create video" do
     #assert_difference('Video.count') do
-    #  post :create, video: { pandastream_id: @video.pandastream_id, profile_id: @video.profile_id, url: @video.url }
+    #  post :create, video: { pandastream_id: @video.pandastream_id, applicant_id: @video.applicant_id, url: @video.url }
     #end
     #
     #assert_redirected_to video_path(assigns(:video))

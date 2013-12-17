@@ -1,7 +1,7 @@
 class CreateVideos < ActiveRecord::Migration
   def change
     create_table :videos do |t|
-      t.belongs_to :profile, index: true
+      t.belongs_to :applicant, index: true
       t.string :pandastream_id, null: false
       t.string :url, null: false
 

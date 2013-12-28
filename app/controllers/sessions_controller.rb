@@ -30,6 +30,13 @@ class SessionsController < ApplicationController
     redirect_to root_url, :notice => "Logged out!"
   end
 
+  def auth_callback
+    auth_hash = request.env['omniauth.auth']
+
+    puts "auth_hash: #{auth_hash.inspect}"
+    redirect_to root_url, :notice => "Authenticated successfully"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_session

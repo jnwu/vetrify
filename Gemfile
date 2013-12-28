@@ -37,9 +37,17 @@ gem 'haml'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
-# for twitter bootstrap
+# Omniauth authentication strategies
+gem 'omniauth', '~> 1.1.4'
+gem 'omniauth-linkedin', '~> 0.1.0'
+gem 'omniauth-github', '~> 1.1.1'
+gem 'omniauth-stackexchange', '~> 0.2.0'
+gem 'omniauth-google-oauth2', '~> 0.2.1'
+
+# Twitter bootstrap
 gem 'bootstrap-sass', '~> 3.0.2.0'
 
+# XML parsing
 gem 'nori'
 gem 'nokogiri'
 

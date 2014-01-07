@@ -7,6 +7,7 @@ class SessionsControllerTest < ActionController::TestCase
     post :create, user_type: "business_user", email: @user.email, password: @user.password
 
     assert_equal @user.id, session[:user_id]
+    assert_equal "business_user", session[:user_type]
   end
 
   test "should sign in normal user" do
@@ -14,6 +15,7 @@ class SessionsControllerTest < ActionController::TestCase
     post :create, user_type: "applicant", email: @user.email, password: @user.password
 
     assert_equal @user.id, session[:user_id]
+    assert_equal "applicant", session[:user_type]
   end
 
   test "should not sign in with incorrect password" do

@@ -14,7 +14,11 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/new
   def new
-    @profile = Profile.new
+    if(Rails.env == 'production')
+      redirect_to "https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=tyeecw8cwrir&scope=r_fullprofile%20r_emailaddress%20r_network&state=DCEEFWF45453sdffef424&redirect_uri=http://www.vetrify.com/thankyou"
+    else
+      redirect_to "https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=tyeecw8cwrir&scope=r_fullprofile%20r_emailaddress%20r_network&state=DCEEFWF45453sdffef424&redirect_uri=http://localhost:3000/thankyou"
+    end
   end
 
   # GET /profiles/1/edit

@@ -12,7 +12,9 @@ Vetrify::Application.routes.draw do
 
   resources :profiles
 
-  root to: 'pages#main'
+  resources :business_users
+
+  root to: 'pages#landing'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

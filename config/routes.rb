@@ -14,9 +14,13 @@ Vetrify::Application.routes.draw do
 
   resources :videos
 
-  root to: 'pages#main'
+  resources :business_users
+
+  resources :profiles
 
   get '/auth/:provider/callback', :to => 'sessions#auth_callback'
+
+  root to: 'pages#landing'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

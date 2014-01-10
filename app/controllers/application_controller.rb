@@ -5,11 +5,15 @@ class ApplicationController < ActionController::Base
 
   # force_ssl
 
-  private
+protected
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    if session[:user_type] && session[:user_type] == "business_user"
+      @current_user ||= BusinessUser.find(session[:user_id])
+    elsif session[:user_type] && session[:user_type] == "applicant"
+      @current_user ||= Profile.find(session[:user_id])
+    end
   end
 
-  # helper_method :current_user
+  helper_method :current_user
 end

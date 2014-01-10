@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
     end
 
     if user && user.authenticate(params[:password])
+      session[:user_type] = params[:user_type]
       session[:user_id] = user.id
       redirect_to root_path, :notice => "Welcome back, #{user.first_name} #{user.last_name}"
     else

@@ -1,3 +1,41 @@
-.col-lg-2.blue
+.section
+  .m-logo
+    =image_tag "vetrify_logo_color.png"
+  .row
+    .col-lg-6
+      .row
+        %h4 Important Point 1
+        %p
+          Barbary Coast crow's nest take a caulk Jolly Roger hands landlubber or just lubber lad grog knave hardtack. Careen parley Shiver me timbers blow the man down snow starboard square-rigged marooned lad cable.
+      .row
+        %h4 Important Point 2
+        %p
+          Barbary Coast crow's nest take a caulk Jolly Roger hands landlubber or just lubber lad grog knave hardtack. Careen parley Shiver me timbers blow the man down snow starboard square-rigged marooned lad cable.
+      .row
+        %h4 Important Point 3
+        %p
+          Barbary Coast crow's nest take a caulk Jolly Roger hands landlubber or just lubber lad grog knave hardtack. Careen parley Shiver me timbers blow the man down snow starboard square-rigged marooned lad cable.
+    .col-lg-6
+      .col-md-2
+      .col-md-8
+        =form_tag sessions_path do
+          .col-sm-6
+            Name *
+          .col-sm-6
+            = text_field_tag 'name', params[:name]
+          .col-sm-6
+            Email *
+          .col-sm-6
+            = text_field_tag 'email', params[:email]
+          .col-sm-6
+            Password *
+          .col-sm-6
+            = text_field_tag 'password', params[:password]
+          .col-sm-6
+            Confirm *
+          .col-sm-6
+            = text_field_tag 'confirm', params[:confirm]
 
-.col-lg-10.red
+          = submit_tag 'Find Candidates Now', class: "center"
+
+      .col-md-2

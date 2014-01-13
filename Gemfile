@@ -23,9 +23,6 @@ end
 # Use Postgress SQL
 gem 'pg', '~> 0.17.0'
 
-# Use AMQP for communication with pandastream
-gem 'amqp', '~> 1.1.5'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -41,8 +38,6 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'omniauth', '~> 1.1.4'
 gem 'omniauth-linkedin', '~> 0.1.0'
 gem 'omniauth-github', '~> 1.1.1'
-gem 'omniauth-stackexchange', '~> 0.2.0'
-gem 'omniauth-google-oauth2', '~> 0.2.1'
 
 # Twitter bootstrap
 gem 'bootstrap-sass', '~> 3.0.2.0'

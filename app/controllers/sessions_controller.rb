@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
   # POST /sessions.json
   def create
     if params[:user_type] == "business_user"
-      user = BusinessUser.find_by_email(params[:email])
+      #user = BusinessUser.find_by_email(params[:email])
     elsif params[:user_type] == "applicant"
       user = Applicant.find_by_email(params[:email])
     end

@@ -1,22 +1,10 @@
 Vetrify::Application.routes.draw do
 
-  resources :business_users
-
   resources :applicants
 
   resource :sessions, only: [:new, :create, :destroy]
 
-  resources :questions
-
-  resources :posts
-
   resources :businesses
-
-  resources :videos
-
-  resources :business_users
-
-  resources :profiles
 
   get '/auth/:provider/callback', :to => 'sessions#auth_callback'
 

@@ -9,7 +9,7 @@ protected
 
   def current_user
     if session[:user_type] && session[:user_type] == "business_user"
-      @current_user ||= BusinessUser.find(session[:user_id])
+      #@current_user ||= BusinessUser.find(session[:user_id])
     elsif session[:user_type] && session[:user_type] == "applicant"
       @current_user ||= Profile.find(session[:user_id])
     end

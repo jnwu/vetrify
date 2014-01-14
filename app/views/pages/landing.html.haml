@@ -1,10 +1,9 @@
+.m-nav
+  = image_tag "vetrify_logo_color.png"
+  = link_to "Join Us", new_profile_path
+  = link_to "About", "#", class: "about"
+
 .l-content
-  .m-nav
-    = image_tag "vetrify_logo_color.png"
-    = link_to "Join Us", new_profile_path
-    = link_to "About", "#", class: "about"
-
-
   %section.l-content-flow.m-landing
     .centering-object
       .container
@@ -14,28 +13,26 @@
   %section.l-content-flow.m-about
     .centering-object
       .container
-        .heading
-          We Save You Time.
+        %h2= "We Find You Jobs."
 
-        .row
-          For computer science and software engineering students, Vetrify is an online platform that provides a streamlined and personalized way to connect with local tech startups.
+        %p
+          For computer science and software engineering students Vetrify is an online platform providing a streamlined and personalized way to connect with local tech startups.
 
-        .row
-          At Vetrify, our goal is to redesign the application process. We enable our users to accurately convey their skills and personality while reducing the time spent building their applications.
+        %p
+          At Vetrify our goal is to redesign the application process. We enable our users to accurately convey their skills and personality while reducing the time spent building their applications.
 
-        .row
+        %p
           =link_to 'Sign up', new_profile_path
-          =" for our beta to experience a better application process coming April 2014"
+          =" for our beta and get noticed by the companies you care about"
 
 
   %section.l-content-flow.m-team
     .centering-object
       .container
-        .heading
-          Who We Are.
+        %h2= "Who We Are."
 
-        .row
+        %p
           Vetrify consists of a team of entrepreneurs, software engineers and business professionals on a mission to redesign the hiring process. As undergraduates of UBC, we have first hand experience with the problems that students face during the hiring process. We are tired of the inefficiencies of the traditional system and have set out to improve the process for our fellow students.
 
-        .row
+        %p
           When we aren’t working our butts off, you can find us at our favourite watering hole, Koerner’s Pub, enjoying a growler with nachos.

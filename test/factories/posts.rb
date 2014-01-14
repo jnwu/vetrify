@@ -3,7 +3,7 @@ FactoryGirl.define do
     association       :business, factory: :business
     position          { Faker::Name.name }
     summary           { Faker::Lorem.paragraph(3) }
-    desired_skills    "Html"
+    desired_skills    "HTML"
     expected_skills   "Ruby"
     start_at          DateTime.now
     expire_at         DateTime.now + 2.weeks

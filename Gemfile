@@ -15,7 +15,6 @@ end
 
 group :test do
   gem "factory_girl_rails", "~> 4.0"
-	gem 'mysql'
   gem 'ffaker'
   gem 'pry-rails'
   gem 'pry-debugger'
@@ -23,9 +22,6 @@ end
 
 # Use Postgress SQL
 gem 'pg', '~> 0.17.0'
-
-# Use AMQP for communication with pandastream
-gem 'amqp', '~> 1.1.5'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -38,9 +34,15 @@ gem 'haml'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
-# for twitter bootstrap
+# Omniauth authentication strategies
+gem 'omniauth', '~> 1.1.4'
+gem 'omniauth-linkedin', '~> 0.1.0'
+gem 'omniauth-github', '~> 1.1.1'
+
+# Twitter bootstrap
 gem 'bootstrap-sass', '~> 3.0.2.0'
 
+# XML parsing
 gem 'nori'
 gem 'nokogiri'
 

@@ -16,13 +16,13 @@ development:
   timeout: 5000
 
 test:
-  adapter: mysql
+  adapter: postgresql
   encode: unicode
   host: localhost
   database: cookiebutter
-  port: 3306
-  username: root
-  password:
+  port: 5432
+  username: cookie
+  password: butter
   pool: 5
   timeout: 5000
 

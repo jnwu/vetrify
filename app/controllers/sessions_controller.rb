@@ -1,3 +1,5 @@
+require 'date'
+
 class SessionsController < ApplicationController
   before_action :set_session, only: [:create, :destroy]
 
@@ -34,7 +36,35 @@ class SessionsController < ApplicationController
   def auth_callback
     auth_hash = request.env['omniauth.auth']
 
-    puts "auth_hash: #{auth_hash.inspect}"
+    if auth_hash['provider'] == 'linkedin'
+      a = Applicant.find_by_email auth_hash['info']['email']
+      a = Applicant.create(
+        email:      auth_hash['info']['email'],
+        first_name: auth_hash['info']['first_name'], 
+        last_name:  auth_hash['info']['last_name'], 
+        image:      auth_hash['info']['image']
+      ) unless a
+
+      auth_hash['extra']['raw_info']['positions']['values'].each do |position|
+        b = Business.find_by_name position['company']['name']
+        b = Business.create(name: position['company']['name']) unless b
+
+        Position.create(
+          applicant_id: a.id,
+          business_id:  b.id,
+          name:         position['company']['name'],
+          summary:      position['summary'],
+          started_at:   Date.new(position['startDate']['year'], position['startDate']['month']),
+          ended_at:     (position['endDate'] ? Date.new(position['endDate']['year'], position['endDate']['month']) : nil)
+        ) unless Position.find_by applicant_id: a.id, business_id: b.id
+      end
+
+      # Save the applicant id in the session
+      session['applicant'] = a.id
+    elsif auth_hash['provider'] == 'github'
+    end
+
+    # Please redirect where it is fancied, =]
     redirect_to root_url, :notice => "Authenticated successfully"
   end
 

@@ -83,13 +83,9 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
-    mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
     multipart-post (1.2.0)
-    nokogiri (1.6.0)
-      mini_portile (~> 0.5.0)
-    nori (2.3.0)
     oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -192,8 +188,6 @@ DEPENDENCIES
   haml
   jbuilder (~> 1.2)
   jquery-rails
-  nokogiri
-  nori
   omniauth (~> 1.1.4)
   omniauth-github (~> 1.1.1)
   omniauth-linkedin (~> 0.1.0)

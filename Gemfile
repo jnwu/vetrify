@@ -42,10 +42,6 @@ gem 'omniauth-github', '~> 1.1.1'
 # Twitter bootstrap
 gem 'bootstrap-sass', '~> 3.0.2.0'
 
-# XML parsing
-gem 'nori'
-gem 'nokogiri'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 

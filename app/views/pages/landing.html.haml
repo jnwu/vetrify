@@ -1,6 +1,6 @@
 .m-nav
   = image_tag "vetrify_logo_color.png"
-  = link_to "Join Us", new_applicant_path
+  = link_to "Join Us", new_sessions_path
   = link_to "About", "#", class: "about"
 
 .l-content
@@ -8,7 +8,7 @@
     .centering-object
       .container
         %h1= "Find A New Frontier In Recruitment"
-        = link_to "Sign Up for the Beta", new_applicant_path, class: "sign-up"
+        = link_to "Sign Up for the Beta", new_sessions_path, class: "sign-up"
 
   %section.l-content-flow.m-about
     .centering-object
@@ -22,7 +22,7 @@
           At Vetrify our goal is to redesign the application process. We enable our users to accurately convey their skills and personality while reducing the time spent building their applications.
 
         %p
-          =link_to 'Sign up', new_applicant_path
+          =link_to 'Sign up', new_sessions_path
           =" for our beta and get noticed by the companies you care about"
 
   %section.l-content-flow.m-team

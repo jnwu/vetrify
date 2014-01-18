@@ -1,7 +1,9 @@
+
+
 .header
   %p= @applicant.first_name
   %p= @applicant.last_name
   %p= @applicant.email
 
-  = link_to 'Edit', edit_applicant_path(@applicant)
-  = link_to 'Back', applicants_path
+= link_to 'Edit', edit_applicant_path(@applicant)
+= link_to 'Back', applicants_path

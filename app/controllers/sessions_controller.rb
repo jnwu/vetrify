@@ -5,16 +5,14 @@ class SessionsController < ApplicationController
 
   # GET /sessions/new
   def new
+    redirect_to "/auth/linkedin"
   end
 
   # POST /sessions
   # POST /sessions.json
   def create
-    if params[:user_type] == "business_user"
-      #user = BusinessUser.find_by_email(params[:email])
-    elsif params[:user_type] == "applicant"
-      user = Applicant.find_by_email(params[:email])
-    end
+
+    user = Applicant.find_by_email(params[:email])
 
     if user && user.authenticate(params[:password])
       session[:user_type] = params[:user_type]
@@ -40,14 +38,13 @@ class SessionsController < ApplicationController
       a = Applicant.find_by_email auth[:info][:email]
       a = Applicant.create(
         email:      auth[:info][:email],
-        first_name: auth[:info][:first_name], 
-        last_name:  auth[:info][:last_name], 
+        first_name: auth[:info][:first_name],
+        last_name:  auth[:info][:last_name],
         image:      auth[:info][:image]
       ) unless a
 
       auth[:extra][:raw_info][:positions][:values].each do |position|
-        b = Business.find_by_name position[:company][:name]
-        b = Business.create(name: position[:company][:name]) unless b
+        b = Business.find_or_create_by(name: position[:company][:name])
 
         Position.create(
           applicant_id: a.id,
@@ -65,7 +62,7 @@ class SessionsController < ApplicationController
     end
 
     # Please redirect where it is fancied, =]
-    redirect_to root_url, :notice => "Authenticated successfully"
+    redirect_to applicant_path(a.id), :notice => "Authenticated successfully"
   end
 
   private
@@ -75,5 +72,5 @@ class SessionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
-    end  
+    end
 end

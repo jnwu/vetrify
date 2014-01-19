@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140119193845) do
+ActiveRecord::Schema.define(version: 20140119214655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,17 @@ ActiveRecord::Schema.define(version: 20140119193845) do
 
   add_index "educations", ["applicant_id"], name: "index_educations_on_applicant_id", using: :btree
 
+  create_table "languages", force: true do |t|
+    t.integer  "repo_id"
+    t.integer  "skill_id"
+    t.float    "percent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "languages", ["repo_id"], name: "index_languages_on_repo_id", using: :btree
+  add_index "languages", ["skill_id"], name: "index_languages_on_skill_id", using: :btree
+
   create_table "positions", force: true do |t|
     t.integer  "applicant_id"
     t.integer  "business_id"
@@ -87,15 +98,18 @@ ActiveRecord::Schema.define(version: 20140119193845) do
   add_index "positions", ["business_id"], name: "index_positions_on_business_id", using: :btree
 
   create_table "repos", force: true do |t|
-    t.integer  "applicant_id"
     t.string   "name"
-    t.string   "language"
+    t.string   "url"
     t.date     "started_at"
     t.datetime "updated_at"
     t.datetime "created_at"
   end
 
-  add_index "repos", ["applicant_id"], name: "index_repos_on_applicant_id", using: :btree
+  create_table "skills", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "tokens", force: true do |t|
     t.integer  "applicant_id"

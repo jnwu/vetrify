@@ -3,6 +3,7 @@ class Applicant < ActiveRecord::Base
   has_many	:businesses, through: :positions
 
   has_many 	:educations
+  has_many	:repos
 
   validates :email, presence: true
   validates :first_name, presence: true

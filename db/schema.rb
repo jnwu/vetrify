@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116052514) do
+ActiveRecord::Schema.define(version: 20140119193845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,19 @@ ActiveRecord::Schema.define(version: 20140116052514) do
   end
 
   add_index "businesses", ["name"], name: "index_businesses_on_name", unique: true, using: :btree
+
+  create_table "educations", force: true do |t|
+    t.integer  "applicant_id"
+    t.string   "school"
+    t.string   "degree"
+    t.string   "field"
+    t.integer  "started_at"
+    t.integer  "ended_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "educations", ["applicant_id"], name: "index_educations_on_applicant_id", using: :btree
 
   create_table "positions", force: true do |t|
     t.integer  "applicant_id"

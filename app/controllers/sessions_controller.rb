@@ -44,9 +44,7 @@ class SessionsController < ApplicationController
 
       auth[:extra][:raw_info][:positions][:values].each do |position|
         b = Business.find_or_create_by(name: position[:company][:name])
-        p = Position.find_by applicant_id: a.id, business_id: b.id, name: position[:title]
-
-        if p.nil?
+        p = Position.find_by(applicant_id: a.id, business_id: b.id, name: position[:title]) or
           Position.create(
             applicant_id: a.id,
             business_id:  b.id,
@@ -55,7 +53,8 @@ class SessionsController < ApplicationController
             started_at:   Date.new(position[:startDate][:year], position[:startDate][:month]),
             ended_at:     (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
           ) 
-        elsif p.summary != position[:summary] 
+
+        if p.summary != position[:summary] 
           Position.update(
             p.id,
             :summary  =>  position[:summary],
@@ -64,6 +63,18 @@ class SessionsController < ApplicationController
         end
       end
 
+      auth[:extra][:raw_info][:educations][:values].each do |education|
+        Education.find_by(applicant_id: a.id, school: education[:schoolName], started_at: education[:startDate][:year]) or
+          Education.create(          
+            applicant_id: a.id, 
+            school:       education[:schoolName], 
+            degree:       education[:degree],
+            field:        education[:fieldOfStudy],
+            started_at:   education[:startDate][:year],
+            ended_at:     education[:endDate][:year]
+          )
+      end
+      
       session[:user_id] = a.id
     elsif auth[:provider] == 'github'
     end

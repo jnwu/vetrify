@@ -1,7 +1,10 @@
-= image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
-%p= @applicant.first_name
-%p= @applicant.last_name
-%p= @applicant.email
+%section.m-applicant-header
+  = image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
 
-= link_to 'Edit', edit_applicant_path(@applicant)
-= link_to 'Back', applicants_path
+  .details
+    %h1= "#{@applicant.name}"
+    %h2= "Univeristy of British Columbia (2009 - 2014)"
+
+%section.m-timeline
+  .line
+  =render partial: "position", collection: @positions

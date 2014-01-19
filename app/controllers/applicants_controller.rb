@@ -10,6 +10,8 @@ class ApplicantsController < ApplicationController
   # GET /applicants/1
   # GET /applicants/1.json
   def show
+    @applicant = Applicant.find(params[:id])
+    @positions  = @applicant.positions.order(ended_at: :desc)
   end
 
   # GET /applicants/new

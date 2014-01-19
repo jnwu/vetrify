@@ -19,10 +19,17 @@ module ApplicationHelper
 
 	class GithubHelper
 		extend ApplicationHelper
-		REPOS = "https://api.github.com/user/repos"
-		def self.pull token
-			return nil unless token
-			return JSON.parse(get(URI.parse("#{REPOS}?access_token=#{token}")).body)
+		BASE = "https://api.github.com"
+		REPOS = '/user/repos'
+
+		def self.repos token
+			return nil unless token			
+			return JSON.parse(get(URI.parse("#{BASE}#{REPOS}?access_token=#{token}")).body)
+	  	end
+
+	  	def self.languages token, name
+			return nil unless name or full_name or token	
+			return JSON.parse(get(URI.parse("#{BASE}/repos/#{name}/languages?access_token=#{token}")).body)
 	  	end
 	end
 end

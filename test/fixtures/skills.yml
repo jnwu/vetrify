@@ -2,12 +2,6 @@
 
 one:
   name: MyString
-  url: MyString
-  started_at: 2014-01-19
-  updated_at: 2014-01-19
 
 two:
   name: MyString
-  url: MyString
-  started_at: 2014-01-19
-  updated_at: 2014-01-19

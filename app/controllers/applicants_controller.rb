@@ -14,6 +14,7 @@ class ApplicantsController < ApplicationController
 
   # GET /applicants/new
   def new
+    # see sessions auth callback
   end
 
   # GET /applicants/1/edit

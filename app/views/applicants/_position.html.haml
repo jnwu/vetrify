@@ -2,7 +2,7 @@
   .heading
     %p.name= position.name
     %p.time= position.pretty_date
-  %ul.positions{ data: { id: position.name} }
+  %ul.positions
     - position.summary.split("\n").each do |point|
       %li= point
 

@@ -10,22 +10,29 @@
 
 
   .position
+    cursor:         pointer
     width:            80%
     background-color: red
     float:            left
+    margin-top:       10px
 
-  .heading
-    margin-right:    10px
-    margin-left:     10px
-    +clearfix
+    &:last-of-type
+      margin-bottom:  10px
 
-    .time
-      float:          right
-      width:          200px
+    .heading
+      margin-right:    10px
+      margin-left:     10px
+      +clearfix
 
-    .name
-      float:          left
+      .time
+        float:          right
+        width:          200px
 
-  .description
+      .name
+        float:          left
+
+  ul.positions
+    display:        none
     margin-right:   10px
     margin-left:    10px
+

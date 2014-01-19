@@ -1,3 +1,6 @@
 class Business < ActiveRecord::Base
-  	validates :name, presence: true
+  	has_many :positions
+  	has_many :applicants, through: :positions
+
+	validates :name, presence: true
 end

@@ -35,33 +35,39 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
 
     if auth[:provider] == 'linkedin'
-      a = Applicant.find_by_email auth[:info][:email]
-      a = Applicant.create(
+      a = Applicant.find_or_create_by(
         email:      auth[:info][:email],
         first_name: auth[:info][:first_name],
         last_name:  auth[:info][:last_name],
         image:      auth[:info][:image]
-      ) unless a
+      )
 
       auth[:extra][:raw_info][:positions][:values].each do |position|
         b = Business.find_or_create_by(name: position[:company][:name])
+        p = Position.find_by applicant_id: a.id, business_id: b.id, name: position[:title]
 
-        Position.create(
-          applicant_id: a.id,
-          business_id:  b.id,
-          name:         position[:company][:name],
-          summary:      position[:summary],
-          started_at:   Date.new(position[:startDate][:year], position[:startDate][:month]),
-          ended_at:     (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
-        ) unless Position.find_by applicant_id: a.id, business_id: b.id
+        if p.nil?
+          Position.create(
+            applicant_id: a.id,
+            business_id:  b.id,
+            name:         position[:title],
+            summary:      position[:summary],
+            started_at:   Date.new(position[:startDate][:year], position[:startDate][:month]),
+            ended_at:     (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
+          ) 
+        elsif p.summary != position[:summary] 
+          Position.update(
+            p.id,
+            :summary  =>  position[:summary],
+            :ended_at =>  (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
+          )
+        end
       end
 
-      # Save the applicant id in the session
       session[:user_id] = a.id
     elsif auth[:provider] == 'github'
     end
 
-    # Please redirect where it is fancied, =]
     redirect_to applicant_path(a.id), :notice => "Authenticated successfully"
   end
 

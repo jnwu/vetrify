@@ -1,8 +1,13 @@
+= render "shared/facebook_share"
+
 .m-nav
   = image_tag "vetrify_logo_color.png"
   = link_to "Join Us", new_sessions_path
   = link_to "About", "#", class: "about"
 
+.m-social
+  .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
+  = render "shared/twitter_share"
 .l-content
   %section.l-content-flow.m-landing
     .centering-object

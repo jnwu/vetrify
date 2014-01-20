@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20140119214655) do
   create_table "repos", force: true do |t|
     t.integer  "applicant_id"
     t.string   "name"
+    t.string   "full_name"
     t.string   "url"
     t.date     "started_at"
     t.datetime "updated_at"

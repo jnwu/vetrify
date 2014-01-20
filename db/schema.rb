@@ -98,12 +98,15 @@ ActiveRecord::Schema.define(version: 20140119214655) do
   add_index "positions", ["business_id"], name: "index_positions_on_business_id", using: :btree
 
   create_table "repos", force: true do |t|
+    t.integer  "applicant_id"
     t.string   "name"
     t.string   "url"
     t.date     "started_at"
     t.datetime "updated_at"
     t.datetime "created_at"
   end
+
+  add_index "repos", ["applicant_id"], name: "index_repos_on_applicant_id", using: :btree
 
   create_table "skills", force: true do |t|
     t.string   "name"

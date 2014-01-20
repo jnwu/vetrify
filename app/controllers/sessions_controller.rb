@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
 
     if auth[:provider] == 'linkedin'
-      @a = Applicant.find_or_create_by(
+      a = Applicant.find_or_create_by(
         email:      auth[:info][:email],
         first_name: auth[:info][:first_name],
         last_name:  auth[:info][:last_name],
@@ -44,9 +44,9 @@ class SessionsController < ApplicationController
 
       auth[:extra][:raw_info][:positions][:values].each do |position|
         b = Business.find_or_create_by(name: position[:company][:name])
-        p = Position.find_by(applicant_id: @a.id, business_id: b.id, name: position[:title])       
+        p = Position.find_by(applicant_id: a.id, business_id: b.id, name: position[:title])       
         p = Position.create(
-            applicant_id: @a.id,
+            applicant_id: a.id,
             business_id:  b.id,
             name:         position[:title],
             summary:      position[:summary],
@@ -64,9 +64,9 @@ class SessionsController < ApplicationController
       end
 
       auth[:extra][:raw_info][:educations][:values].each do |education|
-        Education.find_by(applicant_id: @a.id, school: education[:schoolName], started_at: education[:startDate][:year]) or
+        Education.find_by(applicant_id: a.id, school: education[:schoolName], started_at: education[:startDate][:year]) or
           Education.create(          
-            applicant_id: @a.id, 
+            applicant_id: a.id, 
             school:       education[:schoolName], 
             degree:       education[:degree],
             field:        education[:fieldOfStudy],
@@ -75,7 +75,7 @@ class SessionsController < ApplicationController
           )
       end
       
-      session[:user_id] = @a.id
+      session[:user_id] = a.id
     elsif auth[:provider] == 'github'
       
       # TODO: Add sanity check for user account validation
@@ -86,6 +86,7 @@ class SessionsController < ApplicationController
         repo.symbolize_keys!
         r = Repo.find_by(name: repo[:name])
         r = Repo.create(          
+          applicant_id: session[:user_id],
           name:         repo[:name], 
           url:          repo[:html_url],
           started_at:   Date.parse(repo[:created_at]),
@@ -106,7 +107,7 @@ class SessionsController < ApplicationController
       end
     end
 
-    redirect_to applicant_path(@a.id), :notice => "Authenticated successfully"
+    redirect_to applicant_path(a.id), :notice => "Authenticated successfully"
   end
 
   private

@@ -17,28 +17,34 @@ class ApplicantsController < ApplicationController
     length = (positions.length + educations.length)
     edu_count = 0
     pos_count = 0
+    current_year = next_year( positions[pos_count], educations[edu_count] )
 
     @timeline = []
-    for i in 0..length
-      if ( educations[edu_count].present? && positions[pos_count].present? )
+    year_list = []
 
-        if ( positions[pos_count].ended_at.nil? ||
-             positions[pos_count].ended_at.year > educations[edu_count].ended_at )
-          @timeline << [ positions[pos_count], "position" ]
-          pos_count += 1
-        else
-          @timeline << [ educations[edu_count], "education"]
-          edu_count += 1
-        end
+    position  = positions[pos_count]
+    education = educations[edu_count]
 
-      elsif ( positions[pos_count].present? )
-        @timeline << [ positions[pos_count], "position" ]
+    while ( position.present? || education.present?)
+      position  = positions[pos_count]
+      education = educations[edu_count]
+
+      if ( position.present? && position.ended_at.nil? )
+        year_list << [position, "position"]
         pos_count += 1
-      elsif ( educations[edu_count].present? )
-        @timeline << [ educations[edu_count], "education"]
+      elsif ( position.present? && ( position.ended_at.year == current_year ) )
+        year_list << [position, "position"]
+        pos_count += 1
+      elsif ( education.present? && ( education.ended_at == current_year ) )
+        year_list << [education, "education"]
         edu_count += 1
+      else
+        @timeline << [year_list, current_year]
+        year_list = []
+        current_year = next_year( position, education )
       end
     end
+
   end
 
   # GET /applicants/new
@@ -91,6 +97,22 @@ class ApplicantsController < ApplicationController
   end
 
   private
+    def next_year position, education
+      if ( education.present? && position.present? )
+        if ( position.ended_at.nil? )
+          Time.new.year
+        elsif ( position.ended_at.year > education.ended_at )
+          position.ended_at.year
+        else
+          education.ended_at
+        end
+      elsif ( education.present? )
+        education.ended_at
+      elsif ( position.present? )
+        position.ended_at.year
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_applicant
       @applicant = Applicant.find(params[:id])

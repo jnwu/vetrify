@@ -1,0 +1,42 @@
+.m-experience
+  +clearfix
+  +small-box-shadow
+  cursor:           pointer
+  width:            760px
+  position:         relative
+  margin:           10px 0
+  background-color: white
+  padding:          0 20px 5px 20px
+
+  &.education
+    cursor:           default
+
+  &:before
+    content: " "
+    height: 5px
+    margin: 0 -20px
+
+  &.education:before
+    background-color: rgba(34, 139, 34, 0.4)
+
+  &.position:before
+    background-color: rgba(55, 106, 155, 0.4)
+
+
+
+  .display
+    +clearfix
+
+    > *
+      margin: 10px 0
+
+  .time
+    float:          right
+
+  .name, .school
+    float:          left
+
+  ul.positions
+    display:        none
+    margin-right:   10px
+    margin-left:    10px

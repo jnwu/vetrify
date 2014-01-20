@@ -2,20 +2,25 @@
   =@applicant.name
 
 %section.m-applicant-header
-  = image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
+  .container
+    .photo-box
+      = image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
+      %h1= "#{@applicant.name}"
 
-  .details
-    %h1= "#{@applicant.name}"
-    - if @education.present?
-      %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
+    .details
+      - if @education.present?
+        %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
+
+    .add-box
+      .github
+      .resume
 
 %section.m-timeline
   - @timeline.each do |list|
-    .experience
-      %p= list[1]
+    %p.year= list[1]
     - list[0].each do |item|
       -if item[1] == "position"
-        =render partial: "position", locals: { position: item[0], type: item[1] }
+        = render partial: "position", locals: { position: item[0], type: item[1] }
       -else
-        =render partial: "education", locals: { education: item[0], type: item[1] }
+        = render partial: "education", locals: { education: item[0], type: item[1] }
 

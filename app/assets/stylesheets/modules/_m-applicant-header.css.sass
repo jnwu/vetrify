@@ -1,17 +1,45 @@
 .m-applicant-header
-  +clearfix
   color:              black
+  margin:             20px
+
+  .container
+    +clearfix
+    +small-box-shadow
+    margin:           20px auto
+    width:            800px
 
   .details
-    margin:           10px
     float:            left
+    width:            500px
+    height:           300px
+    background-color: #335F95
 
     h2
       font-size:      1.2em
 
-  img
-    background-color: red
-    height:           150px
-    width:            150px
+  .add-box
     float:            left
+    width:            800px
+    height:           50px
+    background-color: white
+    box-shadow:       inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)
 
+  .photo-box
+    float:            left
+    width:            260px
+    background-color: #404040
+    color:            white
+    height:           220px
+    padding:          40px 20px
+
+    h1
+      font-size:      1.2em
+      line-height:    1.5
+      text-align:     center
+
+    img
+      display:          block
+      margin:           auto
+      height:           150px
+      width:            150px
+      border-radius:    150px

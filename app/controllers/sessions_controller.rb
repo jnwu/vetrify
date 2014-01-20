@@ -81,9 +81,9 @@ class SessionsController < ApplicationController
       # TODO: Add sanity check for user account validation
 
       repos = ApplicationHelper::GithubHelper.repos auth[:credentials][:token]
-
       repos.each do |repo|
         repo.symbolize_keys!
+
         r = Repo.find_by(name: repo[:name])
         r = Repo.create(          
           applicant_id: session[:user_id],
@@ -93,15 +93,20 @@ class SessionsController < ApplicationController
           updated_at:   Date.parse(repo[:updated_at])
         ) unless r       
 
+        total = 0
         languages = ApplicationHelper::GithubHelper.languages auth[:credentials][:token], repo[:full_name]
         languages.symbolize_keys!
+        languages.keys.each do |key|
+          total += languages[key].to_i
+        end
+
         languages.keys.each do |key|
           s = Skill.find_or_create_by name: key
           Language.find_by(repo_id: r.id, skill_id: s.id) or
             Language.create(
               repo_id:  r.id, 
               skill_id: s.id,
-              percent:  languages[key]
+              percent:  ((languages[key].to_f / total) * 100).round(2)
             )
         end
       end

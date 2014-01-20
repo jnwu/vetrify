@@ -16,8 +16,13 @@
           %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
 
       .add-box
-        =fa_icon "github 2x", text: "GitHub"
-        =fa_icon "bars 2x", text: "Resume"
+        .item-list
+          .item
+            = fa_icon "github 2x"
+            =link_to "GitHub", "#"
+          .item
+            = fa_icon "bars 2x"
+            =link_to "Resume", "#"
 
   .m-timeline
     - @timeline.each do |list|

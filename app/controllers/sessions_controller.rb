@@ -63,24 +63,10 @@ class SessionsController < ApplicationController
         end
       end
 
-      auth[:extra][:raw_info][:educations][:values].each do |education|
-        Education.find_by(applicant_id: a.id, school: education[:schoolName], started_at: education[:startDate][:year]) or
-          Education.create(          
-            applicant_id: a.id, 
-            school:       education[:schoolName], 
-            degree:       education[:degree],
-            field:        education[:fieldOfStudy],
-            started_at:   education[:startDate][:year],
-            ended_at:     education[:endDate][:year]
-          )
-      end
-      
+      SessionsHelper::LinkedInHelper.educations a, auth[:extra][:raw_info][:educations][:values]
       session[:user_id] = a.id
     elsif auth[:provider] == 'github'
-      
-      # TODO: Add sanity check for user account validation
-
-      repos = ApplicationHelper::GithubHelper.repos auth[:credentials][:token]
+      repos = SessionsHelper::GithubHelper.repos auth[:credentials][:token]
       repos.each do |repo|
         repo.symbolize_keys!
 
@@ -94,7 +80,7 @@ class SessionsController < ApplicationController
         ) unless r       
 
         total = 0
-        languages = ApplicationHelper::GithubHelper.languages auth[:credentials][:token], repo[:full_name]
+        languages = SessionsHelper::GithubHelper.languages auth[:credentials][:token], repo[:full_name]
         languages.symbolize_keys!
         languages.keys.each do |key|
           total += languages[key].to_i

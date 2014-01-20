@@ -3,8 +3,13 @@
 
   .details
     %h1= "#{@applicant.name}"
-    %h2= "Univeristy of British Columbia (2009 - 2014)"
+    - if @educations.present?
+      %h2= "#{@education.first.school} (#{@education.first.started_at} - #{@education.first.ended_at})"
 
 %section.m-timeline
-  .line
-  =render partial: "position", collection: @positions
+  - @timeline.each do |item|
+    -if item[1] == "position"
+      =render partial: "position", locals: { position: item[0], type: item[1] }
+    -else
+      =render partial: "education", locals: { education: item[0], type: item[1] }
+

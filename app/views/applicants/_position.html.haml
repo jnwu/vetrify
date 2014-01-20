@@ -1,8 +1,9 @@
-.position
+.experience{ class: type }
   .heading
     %p.name= position.name
     %p.time= position.pretty_date
   %ul.positions
-    - position.summary.split("\n").each do |point|
-      %li= point
+    - if position.summary.present?
+      - position.summary.split("\n").each do |point|
+        %li= point
 

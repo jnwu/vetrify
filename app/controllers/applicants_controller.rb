@@ -10,8 +10,35 @@ class ApplicantsController < ApplicationController
   # GET /applicants/1
   # GET /applicants/1.json
   def show
-    @applicant = Applicant.find(params[:id])
-    @positions  = @applicant.positions.order(ended_at: :desc)
+    @education  = @applicant.educations.first
+    positions  = @applicant.positions.order(ended_at: :desc)
+    educations = @applicant.educations.order(ended_at: :desc)
+
+    length = (positions.length + educations.length)
+    edu_count = 0
+    pos_count = 0
+
+    @timeline = []
+    for i in 0..length
+      if ( educations[edu_count].present? && positions[pos_count].present? )
+
+        if ( positions[pos_count].ended_at.nil? ||
+             positions[pos_count].ended_at.year > educations[edu_count].ended_at )
+          @timeline << [ positions[pos_count], "position" ]
+          pos_count += 1
+        else
+          @timeline << [ educations[edu_count], "education"]
+          edu_count += 1
+        end
+
+      elsif ( positions[pos_count].present? )
+        @timeline << [ positions[pos_count], "position" ]
+        pos_count += 1
+      elsif ( educations[edu_count].present? )
+        @timeline << [ educations[edu_count], "education"]
+        edu_count += 1
+      end
+    end
   end
 
   # GET /applicants/new

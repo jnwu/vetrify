@@ -1,15 +1,14 @@
 .m-experience
   +clearfix
   +small-box-shadow
-  cursor:           pointer
   width:            760px
   position:         relative
   margin:           10px 0
   background-color: white
   padding:          0 20px 5px 20px
 
-  &.education
-    cursor:           default
+  &.clickable
+    cursor:         pointer
 
   &:before
     content: " "
@@ -22,7 +21,8 @@
   &.position:before
     background-color: rgba(55, 106, 155, 0.4)
 
-
+  &:last-of-type
+    margin-bottom:    20px
 
   .display
     +clearfix
@@ -36,7 +36,10 @@
   .name, .school
     float:          left
 
-  ul.positions
+    i
+      margin-right: 5px
+
+  ul.summary
     display:        none
     margin-right:   10px
     margin-left:    10px

@@ -20,6 +20,9 @@ group :test do
   gem 'pry-debugger'
 end
 
+# Use Font Awesome for Icons
+gem "font-awesome-rails"
+
 # Use Postgress SQL
 gem 'pg', '~> 0.17.0'
 
@@ -60,7 +63,7 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+# gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
 # gem 'unicorn'

@@ -1,26 +1,29 @@
 -content_for(:title) do
   =@applicant.name
 
-%section.m-applicant-header
-  .container
-    .photo-box
-      = image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
-      %h1= "#{@applicant.name}"
+/ .l-sidebar
+/   = image_tag "vetrify_logo_color.png"
 
-    .details
-      - if @education.present?
-        %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
+%section
+  .m-applicant-header
+    .container
+      .photo-box
+        = image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
+        %h1= "#{@applicant.name}"
 
-    .add-box
-      .github
-      .resume
+      .details
+        - if @education.present?
+          %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
 
-%section.m-timeline
-  - @timeline.each do |list|
-    %p.year= list[1]
-    - list[0].each do |item|
-      -if item[1] == "position"
-        = render partial: "position", locals: { position: item[0], type: item[1] }
-      -else
-        = render partial: "education", locals: { education: item[0], type: item[1] }
+      .add-box
+        =fa_icon "github 2x", text: "GitHub"
+        =fa_icon "bars 2x", text: "Resume"
 
+  .m-timeline
+    - @timeline.each do |list|
+      %p.year= list[1]
+      - list[0].each do |item|
+        -if item[1] == "position"
+          = render partial: "position", locals: { position: item[0], type: item[1] }
+        -else
+          = render partial: "education", locals: { education: item[0], type: item[1] }

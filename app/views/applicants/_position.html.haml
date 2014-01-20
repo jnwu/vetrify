@@ -1,10 +1,13 @@
-.m-experience{ class: type }
+- clickable = position.summary.present?
+.m-experience{ class: (clickable) ? "#{type} clickable" : type }
   .display
-    %p.name= position.name
+    %p.name
+      = fa_icon "laptop"
+      = " #{position.name}"
     %p.time= position.pretty_date
 
-  %ul.positions
-    - if position.summary.present?
+  - if position.summary.present?
+    %ul.summary
       - position.summary.split("\n").each do |point|
         %li= point
 

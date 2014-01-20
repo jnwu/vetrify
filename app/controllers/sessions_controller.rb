@@ -107,7 +107,7 @@ class SessionsController < ApplicationController
       end
     end
 
-    redirect_to applicant_path(a.id), :notice => "Authenticated successfully"
+    redirect_to applicant_path(session[:user_id]), :notice => "Authenticated successfully"
   end
 
   private

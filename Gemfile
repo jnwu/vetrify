@@ -20,6 +20,9 @@ group :test do
   gem 'pry-debugger'
 end
 
+# Bring in the jQuery plugin scrollTo
+gem "jquery-scrollto-rails"
+
 # Use Font Awesome for Icons
 gem "font-awesome-rails"
 

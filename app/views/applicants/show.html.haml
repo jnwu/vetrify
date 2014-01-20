@@ -1,9 +1,6 @@
 -content_for(:title) do
   =@applicant.name
 
-/ .l-sidebar
-/   = image_tag "vetrify_logo_color.png"
-
 %section
   .m-applicant-header
     .container
@@ -14,9 +11,12 @@
       .details
         - if @education.present?
           %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
-
+        = "I DON'T KNOW WHAT TO PUT IN THERE"
       .add-box
         .item-list
+          .item
+            = fa_icon "linkedin-square 2x"
+            =link_to "LinkedIn", "#"
           .item
             = fa_icon "github 2x"
             =link_to "GitHub", "#"

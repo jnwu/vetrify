@@ -1,0 +1,8 @@
+.position
+  .heading
+    %p.name= position.name
+    %p.time= position.pretty_date
+  %ul.positions
+    - position.summary.split("\n").each do |point|
+      %li= point
+

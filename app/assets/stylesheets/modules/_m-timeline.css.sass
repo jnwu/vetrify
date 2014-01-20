@@ -1,0 +1,38 @@
+.m-timeline
+  +clearfix
+  color: black
+
+  .line
+    height:           100%
+    width:            5px
+    background-color: black
+    float:            left
+
+
+  .position
+    cursor:         pointer
+    width:            80%
+    background-color: red
+    float:            left
+    margin-top:       10px
+
+    &:last-of-type
+      margin-bottom:  10px
+
+    .heading
+      margin-right:    10px
+      margin-left:     10px
+      +clearfix
+
+      .time
+        float:          right
+        width:          200px
+
+      .name
+        float:          left
+
+  ul.positions
+    display:        none
+    margin-right:   10px
+    margin-left:    10px
+

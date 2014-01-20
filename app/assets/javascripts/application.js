@@ -14,18 +14,4 @@
 //= require jquery_ujs
 //= require_tree .
 
-function addScrollToListener(clicked_element, target_element) {
-  document.getElementsByClassName(clicked_element)[0].onclick = function()
-  {
-    document.getElementsByClassName(target_element)[0].scrollIntoView();
-  };
-};
-
-window.onload = function () {
-  document.getElementsByClassName("about")[0].onclick = function(e)
-  {
-    event.preventDefault();
-    document.getElementsByClassName("m-about")[0].scrollIntoView();
-  };
-}
 

@@ -39,14 +39,24 @@
 
   .m-timeline
     - if ( @repos.present? )
+
+
       .col-3
-        %h2= "Active Repos"
-        %dl
-          - @repos.first(5).each do |repo|
-            %li.repo
-              %a.name{ href: repo.url }
-                = fa_icon "github"
-                = "#{repo.name}"
+        .filters
+          %h2= "Filters"
+          =link_to "Work Experience", "#", { class: "position_filter" }
+          =link_to "Education", "#", { class: "education_filter" }
+          =link_to "GitHub", "#", { class: "github_filter" }
+          =link_to "All", "#", { class: "all_filter"}
+
+        .repos
+          %h2= "Active Repos"
+          %dl
+            - @repos.first(5).each do |repo|
+              %li.repo
+                %a.name{ href: repo.url }
+                  = fa_icon "github"
+                  = "#{repo.name}"
       .col-9
         - @timeline.each do |list|
           %p.year= list[1]

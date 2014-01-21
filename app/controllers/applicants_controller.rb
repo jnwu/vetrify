@@ -14,7 +14,6 @@ class ApplicantsController < ApplicationController
     @positions  = @applicant.positions.order(ended_at: :desc)
     @educations = @applicant.educations.order(ended_at: :desc)
     @repos      = @applicant.repos.order(updated_at: :desc)
-
     @timeline   = build_timeline( @educations, @positions, @repos )
   end
 

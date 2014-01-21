@@ -13,19 +13,25 @@
 
   .col-3
     +grid-3
-    +small-box-shadow
     float:            left
     position:         relative
     margin:           10px 0
-    background-color: white
-    padding:          0 20px 5px 20px
-    font-size:        14pt
 
-    &:before
-      content: " "
-      height: 5px
-      margin: 0 -20px
-      background-color: rgba(0, 0, 0, 0.4)
+    .filters, .repos
+      +small-box-shadow
+      background-color: white
+      padding:          0 20px 5px 20px
+      font-size:        14pt
+      margin-top:       10px
+
+      a
+        display: block
+
+      &:before
+        content: " "
+        height: 5px
+        margin: 0 -20px
+        background-color: rgba(0, 0, 0, 0.4)
 
   .col-9
     +grid-8

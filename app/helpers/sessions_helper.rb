@@ -4,20 +4,43 @@ require 'net/https'
 
 module SessionsHelper
 	def get uri
-	  	begin
-			http = Net::HTTP.new(uri.host, uri.port)
-			http.read_timeout = 15
-			http.use_ssl = true if (uri.scheme == 'https')
-			http.start do
-				request = Net::HTTP::Get.new uri.request_uri
-				return http.request request
-			end
-		rescue Net::ReadTimeout
-			return nil
+		http = Net::HTTP.new(uri.host, uri.port)
+		http.read_timeout = 15
+		http.use_ssl = true if (uri.scheme == 'https')
+		http.start do
+			request = Net::HTTP::Get.new uri.request_uri
+			return http.request request
+		end
+	end
+
+	def post uri, payload
+		http = Net::HTTP.new(uri.host, uri.port)
+		http.read_timeout = 15
+		http.use_ssl = true if (uri.scheme == 'https')
+		http.start do
+			request = Net::HTTP::Post.new uri.request_uri
+			request.body = payload
+			return http.request request
 		end
 	end
 
 	class LinkedInHelper
+		def self.user info
+	        a = Applicant.find_by email: info[:email]
+
+	        unless a 
+		      	a = Applicant.create(
+			        email:      info[:email],
+			        first_name: info[:first_name],
+			        last_name:  info[:last_name],
+			        image:      info[:image]
+	      		)
+				SessionsHelper::MandrillHelper.send a.email
+	        end
+
+	        return a
+		end
+
 		def self.educations id, educations
  	    	educations.each do |education|
 	        	Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) or
@@ -104,4 +127,28 @@ module SessionsHelper
 	        end			
 	  	end
 	end
+
+	class MandrillHelper
+		extend SessionsHelper
+		BASE = 'https://mandrillapp.com/api/1.0/messages/send-template.json'
+
+		def self.send email
+			return nil unless email
+
+			key = Api.find_by provider: 'mandrill', tag: 'client_key'
+			uri = URI.parse(BASE)
+			payload = {
+			    :key 				=> key.key,
+			    :template_name 		=> "Vetrify",
+			    :template_content 	=> nil,
+			    :message 			=> {
+			        :to => [{:email => email}]
+			    },
+			    :async 				=> false,
+			    :ip_pool 			=> "Main Pool"
+			}.to_json
+
+			JSON.parse(post(uri, payload).body)
+		end
+	end	
 end

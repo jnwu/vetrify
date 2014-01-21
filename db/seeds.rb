@@ -12,3 +12,5 @@ Api.create(provider: 'linkedin', tag: 'client_secret', key: 'V2l4Rn3Efm2SW100')
 
 Api.create(provider: 'github', tag: 'client_id', key: '010d4e6a46d2d8deaf0b')
 Api.create(provider: 'github', tag: 'client_secret', key: '5d59eb9a1b77eecbe43c77c7cce704e0a960cfd4')
+
+Api.create(provider: 'mandrill', tag: 'client_key', key: 'lVbPATZppGc5fzW5SsjI9A')

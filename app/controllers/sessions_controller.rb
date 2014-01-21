@@ -35,12 +35,7 @@ class SessionsController < ApplicationController
     auth = request.env['omniauth.auth']
 
     if auth[:provider] == 'linkedin'
-      a = Applicant.find_or_create_by(
-        email:      auth[:info][:email],
-        first_name: auth[:info][:first_name],
-        last_name:  auth[:info][:last_name],
-        image:      auth[:info][:image]
-      )
+      a = SessionsHelper::LinkedInHelper.user auth[:info]
 
       # Update entries for user positions and educations
       SessionsHelper::LinkedInHelper.positions a.id, auth[:extra][:raw_info][:positions][:values]

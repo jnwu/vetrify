@@ -40,7 +40,7 @@
   .m-timeline
     - if ( @repos.present? )
       .col-3
-        %h2= "GitHub Repos"
+        %h2= "Active Repos"
         %dl
           - @repos.first(5).each do |repo|
             %li.repo

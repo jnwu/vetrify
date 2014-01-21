@@ -1,11 +1,4 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-	# LinkedIn
-	id = Api.find_by provider: 'linkedin', tag: 'client_id'
-	secret = Api.find_by provider: 'linkedin', tag: 'client_secret' 
-	provider :linkedin, id.key, secret.key, :scope => 'r_fullprofile r_emailaddress', :fields => ["id", "email-address", "first-name", "last-name", "picture-url", "location", "positions", "educations"]
-
-	# Github
-	id = Api.find_by provider: 'github', tag: 'client_id'
-	secret = Api.find_by provider: 'github', tag: 'client_secret' 
-	provider :github, id.key, secret.key, scope: "user,repo"
+	provider :linkedin, '75qairvgqfo2xn', 'V2l4Rn3Efm2SW100', :scope => 'r_fullprofile r_emailaddress', :fields => ["id", "email-address", "first-name", "last-name", "picture-url", "location", "positions", "educations"]
+	provider :github, '010d4e6a46d2d8deaf0b', '5d59eb9a1b77eecbe43c77c7cce704e0a960cfd4', scope: 'user,repo'
 end

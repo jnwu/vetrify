@@ -1,0 +1,9 @@
+.m-experience{ class: type }
+  .display
+    %a.name{ href: repo.url }
+      = fa_icon "github"
+      = "#{repo.name}"
+    %p.time= "#{repo.pretty_date}"
+    .languages
+      - repo.languages.first(3).each do |lang|
+        = "#{lang.skill.name} - #{lang.percent}%, "

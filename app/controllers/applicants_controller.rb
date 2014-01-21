@@ -11,40 +11,11 @@ class ApplicantsController < ApplicationController
   # GET /applicants/1.json
   def show
     @education  = @applicant.educations.first
-    positions  = @applicant.positions.order(ended_at: :desc)
-    educations = @applicant.educations.order(ended_at: :desc)
+    @positions  = @applicant.positions.order(ended_at: :desc)
+    @educations = @applicant.educations.order(ended_at: :desc)
+    @repos      = @applicant.repos.order(updated_at: :desc)
 
-    length = (positions.length + educations.length)
-    edu_count = 0
-    pos_count = 0
-    current_year = next_year( positions[pos_count], educations[edu_count] )
-
-    @timeline = []
-    year_list = []
-
-    position  = positions[pos_count]
-    education = educations[edu_count]
-
-    while ( position.present? || education.present?)
-      position  = positions[pos_count]
-      education = educations[edu_count]
-
-      if ( position.present? && position.ended_at.nil? )
-        year_list << [position, "position"]
-        pos_count += 1
-      elsif ( position.present? && ( position.ended_at.year == current_year ) )
-        year_list << [position, "position"]
-        pos_count += 1
-      elsif ( education.present? && ( education.ended_at == current_year ) )
-        year_list << [education, "education"]
-        edu_count += 1
-      else
-        @timeline << [year_list, current_year]
-        year_list = []
-        current_year = next_year( position, education )
-      end
-    end
-
+    @timeline   = build_timeline( @educations, @positions, @repos )
   end
 
   # GET /applicants/new
@@ -96,30 +67,77 @@ class ApplicantsController < ApplicationController
     end
   end
 
-  private
-    def next_year position, education
-      if ( education.present? && position.present? )
-        if ( position.ended_at.nil? )
-          Time.new.year
-        elsif ( position.ended_at.year > education.ended_at )
-          position.ended_at.year
-        else
-          education.ended_at
-        end
-      elsif ( education.present? )
-        education.ended_at
-      elsif ( position.present? )
-        position.ended_at.year
+private
+  def next_year position, education, repo
+    possibles = []
+
+    if ( education.present? && education.ended_at.present? )
+      possibles << education.ended_at
+    end
+
+    if ( repo.present? && repo.updated_at.present? )
+      possibles << repo.updated_at.year
+    end
+
+    if ( position.present? && position.ended_at.present? )
+      possibles << position.ended_at.year
+    elsif ( position.present? && position.ended_at.nil? )
+      return Time.new.year
+    end
+
+    possibles.sort{ |x, y| x <=> y }
+
+    return possibles.last
+  end
+
+  def build_timeline educations, positions, repos
+    edu_c = 0
+    pos_c = 0
+    rep_c = 0
+
+    return_value = []
+    year_list = []
+
+    current_year = next_year( positions[pos_c], educations[edu_c], repos[rep_c] )
+
+    position  = positions[pos_c]
+    education = educations[edu_c]
+    repo      = repos[rep_c]
+
+    while ( position.present? || education.present? || repo.present? )
+      position  = positions[pos_c]
+      education = educations[edu_c]
+      repo      = repos[rep_c]
+
+      if ( position.present? && position.ended_at.nil? )
+        year_list << [position, "position"]
+        pos_c += 1
+      elsif ( position.present? && ( position.ended_at.year == current_year ) )
+        year_list << [position, "position"]
+        pos_c += 1
+      elsif ( education.present? && ( education.ended_at == current_year ) )
+        year_list << [education, "education"]
+        edu_c += 1
+      elsif ( repo.present? && ( repo.updated_at.year == current_year ) )
+        year_list << [repo, "repo"]
+        rep_c += 1
+      else
+        return_value << [year_list, current_year]
+        year_list = []
+        current_year = next_year( position, education, repo )
       end
     end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_applicant
-      @applicant = Applicant.find(params[:id])
-    end
+    return_value
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def applicant_params
-      params.require(:applicant).permit(:first_name, :last_name, :email, :password, :password, :password_digest)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_applicant
+    @applicant = Applicant.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def applicant_params
+    params.require(:applicant).permit(:first_name, :last_name, :email, :password, :password, :password_digest)
+  end
 end

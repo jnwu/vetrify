@@ -11,7 +11,20 @@
       .details
         - if @education.present?
           %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
-        = "I DON'T KNOW WHAT TO PUT IN THERE"
+        .summary
+          -if @educations.present?
+            %p.icon
+              = fa_icon "laptop"
+              = "x #{@positions.count}"
+          -if @educations.present?
+            %p.icon
+              = fa_icon "bell"
+              = "x #{@educations.count}"
+          -if @repos.present?
+            %p.icon
+              = fa_icon "github"
+              = "x #{@repos.count}"
+
       .add-box
         .item-list
           .item
@@ -25,10 +38,32 @@
             =link_to "Resume", "#"
 
   .m-timeline
-    - @timeline.each do |list|
-      %p.year= list[1]
-      - list[0].each do |item|
-        -if item[1] == "position"
-          = render partial: "position", locals: { position: item[0], type: item[1] }
-        -else
-          = render partial: "education", locals: { education: item[0], type: item[1] }
+    - if ( @repos.present? )
+      .col-3
+        %h2= "GitHub Repos"
+        %dl
+          - @repos.first(5).each do |repo|
+            %li.repo
+              %a.name{ href: repo.url }
+                = fa_icon "github"
+                = "#{repo.name}"
+      .col-9
+        - @timeline.each do |list|
+          %p.year= list[1]
+          - list[0].each do |item|
+            -if item[1] == "position"
+              = render partial: "position", locals: { position: item[0], type: item[1] }
+            -elsif item[1] == "education"
+              = render partial: "education", locals: { education: item[0], type: item[1] }
+            -elsif item[1] == "repo"
+              = render partial: "repo", locals: { repo: item[0], type: item[1] }
+    - else
+      - @timeline.each do |list|
+        %p.year= list[1]
+        - list[0].each do |item|
+          -if item[1] == "position"
+            = render partial: "position", locals: { position: item[0], type: item[1] }
+          -elsif item[1] == "education"
+            = render partial: "education", locals: { education: item[0], type: item[1] }
+          -elsif item[1] == "repo"
+            = render partial: "repo", locals: { repo: item[0], type: item[1] }

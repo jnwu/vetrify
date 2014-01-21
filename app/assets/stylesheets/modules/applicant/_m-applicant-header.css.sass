@@ -7,11 +7,11 @@
     +clearfix
     +small-box-shadow
     margin:           20px auto
-    width:            800px
+    width:            $grid_width
 
   .details
+    width:            688px
     float:            left
-    width:            460px
     height:           230px
     background-color: #335F95
     padding:          20px
@@ -21,7 +21,7 @@
 
   .add-box
     float:            left
-    width:            800px
+    width:            $grid_width
     height:           50px
     background-color: white
     box-shadow:       inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)
@@ -49,9 +49,18 @@
         &:hover > *
           color:      rgba(255,102,0, 1)
 
+  .summary
+    position: relative
+    width: 100%
+    height: 30px
+
+    .icon
+      float: left
+      margin: 0 10px
+
   .photo-box
     float:            left
-    width:            260px
+    width:            256px
     background-color: #404040
     color:            white
     height:           190px

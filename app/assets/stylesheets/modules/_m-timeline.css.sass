@@ -1,7 +1,7 @@
 .m-timeline
   +clearfix
   color: black
-  width: 800px
+  width: $grid_width
   margin: 20px auto
   position relative
 
@@ -11,4 +11,22 @@
     margin:     10px 0
     text-align: center
 
+  .col-3
+    +grid-3
+    +small-box-shadow
+    float:            left
+    position:         relative
+    margin:           10px 0
+    background-color: white
+    padding:          0 20px 5px 20px
+    font-size:        14pt
 
+    &:before
+      content: " "
+      height: 5px
+      margin: 0 -20px
+      background-color: rgba(0, 0, 0, 0.4)
+
+  .col-9
+    +grid-8
+    float: right

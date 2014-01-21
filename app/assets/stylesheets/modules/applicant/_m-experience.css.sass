@@ -1,7 +1,7 @@
 .m-experience
   +clearfix
   +small-box-shadow
-  width:            760px
+  width:            calc(100% - 40px)
   position:         relative
   margin:           10px 0
   background-color: white
@@ -22,6 +22,9 @@
   &.position:before
     background-color: rgba(55, 106, 155, 0.4)
 
+  &.repo:before
+    background-color: rgba(0, 0, 0, 0.4)
+
   &:last-of-type
     margin-bottom:    20px
 
@@ -33,8 +36,10 @@
 
   .time
     float:          right
+    font-size:      10pt
+    line-height:    22px
 
-  .name, .school
+  .business, .school, .name
     float:          left
 
     i
@@ -44,3 +49,15 @@
     display:        none
     margin-right:   10px
     margin-left:    10px
+
+  .position_name
+    float:          left
+    width:          100%
+    font-size:      10pt
+
+  .languages
+    float:          left
+    text-align:     right
+    width:          100%
+    font-size:      10pt
+

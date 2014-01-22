@@ -10,28 +10,39 @@
     width:      100%
     margin:     10px 0
     text-align: center
+    font-size:  16pt
 
   .col-3
     +grid-3
     float:            left
-    position:         relative
     margin:           10px 0
 
     .filters, .repos
       +small-box-shadow
+      +clearfix
+      width: 260px
       background-color: white
-      padding:          0 20px 5px 20px
+      padding:          0 20px 20px 20px
       font-size:        14pt
       margin-top:       10px
 
-      a
-        display: block
-
       &:before
-        content: " "
-        height: 5px
-        margin: 0 -20px
-        background-color: rgba(0, 0, 0, 0.4)
+        content:          ""
+        height:           5px
+        background-color: rgba(255,102,0, .7)
+        margin:           0 -20px
+
+      h3
+        margin:  0
+        padding: 10px 0
+
+      a
+        text-decoration:  none
+        display:          block
+
+    .filters
+      margin-top: 35px
+
 
   .col-9
     +grid-8

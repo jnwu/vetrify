@@ -4,9 +4,10 @@ Vetrify::Application.routes.draw do
 
   resource :sessions, only: [:new, :create, :destroy]
 
-  resources :businesses
+  get '/auth/:provider/callback', to: 'sessions#auth_callback'
 
-  get '/auth/:provider/callback', :to => 'sessions#auth_callback'
+  get 'terms_of_use' => 'pages#terms_of_use'
+  get 'business' => 'pages#business_landing'
 
   root to: 'pages#landing'
 

@@ -20,7 +20,7 @@
           %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
 
         .summary
-          -if @educations.present?
+          -if @positions.present?
             %p.icon
               = fa_icon "laptop"
               = "Work x #{@positions.count}"
@@ -38,11 +38,13 @@
           .item
             = fa_icon "linkedin-square 2x"
             =link_to "LinkedIn", @applicant.linkedin_url
-          .item
-            = fa_icon "github 2x"
-            - if (@repos.present?)
+          - if @applicant.github_url.present?
+            .item
+              = fa_icon "github 2x"
               =link_to "GitHub",@applicant.github_url
-            - else
+          - elsif session[:user_id].present?
+            .item
+              = fa_icon "github 2x"
               =link_to "GitHub", "/auth/github"
 
   .m-timeline
@@ -50,19 +52,25 @@
       .col-3
         .filters
           %h3= "Filters"
-          =link_to "Work Experience", "#", { class: "position_filter" , target: "new_tab" }
-          =link_to "Education", "#", { class: "education_filter" , target: "new_tab" }
-          =link_to "GitHub", "#", { class: "github_filter" , target: "new_tab" }
+          .position_filter
+            = fa_icon "laptop"
+            =link_to "Work Experience", "#"
+          .education_filter
+            = fa_icon "bell"
+            =link_to "Education", "#"
+          .github_filter
+            = fa_icon "github"
+            =link_to "GitHub", "#"
+
           =link_to "None", "#", { class: "all_filter", target: "new_tab" }
 
         .repos
           %h3= "Active Repos"
-          %dl
-            - @repos.first(5).each do |repo|
-              %li.repo
-                %a.name{ href: repo.url }
-                  = fa_icon "github"
-                  = "#{repo.name}"
+          - @repos.first(5).each do |repo|
+            .repo
+              %a.name{ href: repo.url, target: "new_tab" }
+                = fa_icon "github"
+                = "#{repo.name}"
       .col-9
         - @timeline.each do |list|
           %p.year= list[1]

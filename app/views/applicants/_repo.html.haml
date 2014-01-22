@@ -1,6 +1,6 @@
 .m-experience{ class: type }
   .display
-    %a.name{ href: repo.url }
+    %a.name{ href: repo.url, target: "new_tab" }
       = fa_icon "github"
       = "#{repo.name}"
     %p.time= "#{repo.pretty_date}"

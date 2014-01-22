@@ -1,29 +1,37 @@
 -content_for(:title) do
   =@applicant.name
 
+= render "shared/facebook_share"
+
+.m-social
+  .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
+  = render "shared/twitter_share"
+
 %section
   .m-applicant-header
     .container
       .photo-box
         = image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
-        %h1= "#{@applicant.name}"
 
       .details
+        %h1= "#{@applicant.name}"
+
         - if @education.present?
           %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
+
         .summary
           -if @educations.present?
             %p.icon
               = fa_icon "laptop"
-              = "x #{@positions.count}"
+              = "Work x #{@positions.count}"
           -if @educations.present?
             %p.icon
               = fa_icon "bell"
-              = "x #{@educations.count}"
+              = "School x #{@educations.count}"
           -if @repos.present?
             %p.icon
               = fa_icon "github"
-              = "x #{@repos.count}"
+              = "Open Source x #{@repos.count}"
 
       .add-box
         .item-list
@@ -32,25 +40,23 @@
             =link_to "LinkedIn", "#"
           .item
             = fa_icon "github 2x"
-            =link_to "GitHub", "#"
+            =link_to "GitHub", "/auth/github"
           .item
             = fa_icon "bars 2x"
             =link_to "Resume", "#"
 
   .m-timeline
     - if ( @repos.present? )
-
-
       .col-3
         .filters
-          %h2= "Filters"
+          %h3= "Filters"
           =link_to "Work Experience", "#", { class: "position_filter" }
           =link_to "Education", "#", { class: "education_filter" }
           =link_to "GitHub", "#", { class: "github_filter" }
-          =link_to "All", "#", { class: "all_filter"}
+          =link_to "None", "#", { class: "all_filter"}
 
         .repos
-          %h2= "Active Repos"
+          %h3= "Active Repos"
           %dl
             - @repos.first(5).each do |repo|
               %li.repo

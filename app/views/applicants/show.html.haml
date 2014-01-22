@@ -4,8 +4,8 @@
 = render "shared/facebook_share"
 
 .m-social
-  .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
-  = render "shared/twitter_share"
+  .fb-share-button{ "data-href"=> "http://www.vetrify.com#{applicant_path(@applicant)}", "data-type"=>"button" }
+  = render partial: "shared/twitter_share", locals: { url: "http://www.vetrify.com#{applicant_path(@applicant)}" }
 
 %section
   .m-applicant-header
@@ -37,23 +37,23 @@
         .item-list
           .item
             = fa_icon "linkedin-square 2x"
-            =link_to "LinkedIn", "#"
+            =link_to "LinkedIn", @applicant.linkedin_url
           .item
             = fa_icon "github 2x"
-            =link_to "GitHub", "/auth/github"
-          .item
-            = fa_icon "bars 2x"
-            =link_to "Resume", "#"
+            - if (@repos.present?)
+              =link_to "GitHub",@applicant.github_url
+            - else
+              =link_to "GitHub", "/auth/github"
 
   .m-timeline
     - if ( @repos.present? )
       .col-3
         .filters
           %h3= "Filters"
-          =link_to "Work Experience", "#", { class: "position_filter" }
-          =link_to "Education", "#", { class: "education_filter" }
-          =link_to "GitHub", "#", { class: "github_filter" }
-          =link_to "None", "#", { class: "all_filter"}
+          =link_to "Work Experience", "#", { class: "position_filter" , target: "new_tab" }
+          =link_to "Education", "#", { class: "education_filter" , target: "new_tab" }
+          =link_to "GitHub", "#", { class: "github_filter" , target: "new_tab" }
+          =link_to "None", "#", { class: "all_filter", target: "new_tab" }
 
         .repos
           %h3= "Active Repos"

@@ -5,6 +5,8 @@ class CreateApplicants < ActiveRecord::Migration
       t.string :last_name
       t.string :email
       t.string :image
+      t.string :linkedin_url
+      t.string :github_url
 
       t.timestamps
     end

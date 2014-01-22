@@ -30,10 +30,11 @@ module SessionsHelper
 
 	        unless a 
 		      	a = Applicant.create(
-			        email:      info[:email],
-			        first_name: info[:first_name],
-			        last_name:  info[:last_name],
-			        image:      info[:image]
+			        email:      	info[:email],
+			        first_name: 	info[:first_name],
+			        last_name:  	info[:last_name],
+			        linkedin_url:  	info[:urls][:public_profile],
+			        image:      	info[:image]
 	      		)
 				SessionsHelper::MandrillHelper.send a.email
 	        end
@@ -85,7 +86,7 @@ module SessionsHelper
 		REPOS = '/user/repos'
 
 		def self.repos token, id
-			return nil unless token			
+			return nil unless token	
 			repos = JSON.parse(get(URI.parse("#{BASE}#{REPOS}?access_token=#{token}")).body)
 
 	      	repos.each do |repo|

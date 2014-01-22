@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20140119214655) do
     t.string   "last_name"
     t.string   "email"
     t.string   "image"
+    t.string   "linkedin_url"
+    t.string   "github_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

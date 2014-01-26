@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
       session[:user_id] = a.id
     elsif auth[:provider] == 'github'
       a = Applicant.find_by id: session[:user_id]
-      binding.pry
+
       if a.github_url.nil? or a.github != auth[:info][:urls][:GitHub]
         a.github_url = auth[:info][:urls][:GitHub]
         a.save

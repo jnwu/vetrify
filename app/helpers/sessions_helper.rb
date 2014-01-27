@@ -43,6 +43,7 @@ module SessionsHelper
 		end
 
 		def self.educations id, educations
+			return unless educations
  	    	educations.each do |education|
 	        	Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) or
 	          	Education.create(
@@ -57,6 +58,7 @@ module SessionsHelper
 		end
 
 		def self.positions id, positions
+			return unless positions
       		positions.each do |position|
 		        b = Business.find_or_create_by(name: position[:company][:name])
 		        p = Position.find_by(applicant_id: id, business_id: b.id, name: position[:title])
@@ -89,23 +91,23 @@ module SessionsHelper
 			return nil unless token
 			repos = JSON.parse(get(URI.parse("#{BASE}#{REPOS}?access_token=#{token}")).body)
 
-    	repos.each do |repo|
-        repo.symbolize_keys!
+			return unless repos
+	    	repos.each do |repo|
+		        repo.symbolize_keys!
 
-        r = Repo.find_by(name: repo[:name])
-        r = Repo.create(
-          applicant_id: id,
-          name:         repo[:name],
-          full_name:    repo[:full_name],
-          url:          repo[:html_url],
-          started_at:   Date.parse(repo[:created_at]),
-          updated_at:   Date.parse(repo[:updated_at])
-        ) unless r
+		        r = Repo.find_by(name: repo[:name])
+		        r = Repo.create(
+		          applicant_id: id,
+		          name:         repo[:name],
+		          full_name:    repo[:full_name],
+		          url:          repo[:html_url],
+		          started_at:   Date.parse(repo[:created_at]),
+		          updated_at:   Date.parse(repo[:updated_at])
+		        ) unless r
 
-        yield r
-    	end
-
-  	end
+		        yield r
+    		end
+  		end
 
 	  	def self.languages token, r
 			return nil unless name or full_name or token

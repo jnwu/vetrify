@@ -3,8 +3,13 @@
   = link_to "Inquire", "#"
   = link_to "Students", root_path
 
+.m-social
+  = render "shared/facebook_share"
+  .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
+  = render partial: "shared/twitter_share", locals: { url: nil }
+
 .l-content
-  %section.l-content-flow.m-about
+  %section.l-content-flow.m-business-landing
     .centering-object
       .container
         %h2= "One Platform."

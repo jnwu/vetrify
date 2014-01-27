@@ -50,7 +50,7 @@ class SessionsController < ApplicationController
         a.save
       end
 
-      SessionsHelper::GithubHelper.repos(auth[:credentials][:token], session[:user_id]) { |r|
+      SessionsHelper::GithubHelper.repos(auth[:credentials][:token], a) { |r|
         SessionsHelper::GithubHelper.languages auth[:credentials][:token], r
       }
     end

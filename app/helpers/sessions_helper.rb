@@ -87,17 +87,31 @@ module SessionsHelper
 		BASE = "https://api.github.com"
 		REPOS = '/user/repos'
 
-		def self.repos token, id
-			return nil unless token
+		def self.repos token, a
+			return nil unless token or a
 			repos = JSON.parse(get(URI.parse("#{BASE}#{REPOS}?access_token=#{token}")).body)
-
 			return unless repos
+
+			# Get all existing repos in db
+			# Delete repo if it does not exist in returned json
+			db = Repo.where applicant_id: a.id
+			c = false
+			db.each do |d| 
+				repos.each do |repo|
+					c = true if d.name == repo.name
+				end
+
+				Repo.destroy d.id unless c
+				c = false
+			end
+
+			# Update user repos in db
 	    	repos.each do |repo|
 		        repo.symbolize_keys!
 
-		        r = Repo.find_by(name: repo[:name])
+		        r = Repo.find_by name: repo[:name], applicant_id: a.id
 		        r = Repo.create(
-		          applicant_id: id,
+		          applicant_id: a.id,
 		          name:         repo[:name],
 		          full_name:    repo[:full_name],
 		          url:          repo[:html_url],

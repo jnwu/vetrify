@@ -52,14 +52,14 @@
     .col-3
       .filters
         %h3= "Filters"
-        .position_filter
+        .position_filter.filter
           = fa_icon "laptop"
           =link_to "Work Experience", "#"
-        .education_filter
+        .education_filter.filter
           = fa_icon "bell"
           =link_to "Education", "#"
         - if ( @repos.present? )
-          .github_filter
+          .github_filter.filter
             = fa_icon "github"
             =link_to "GitHub", "#"
 

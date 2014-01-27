@@ -1,37 +1,34 @@
 .m-nav
   = image_tag "vetrify_logo_color.png"
-  = link_to "Inquire", new_sessions_path
-  = link_to "About", "#", class: "about"
+  = link_to "Inquire", "#"
+  = link_to "Students", root_path
 
 .l-content
-  %section.l-content-flow.m-landing
+  %section.l-content-flow.m-about
     .centering-object
       .container
-        %h1= "Find A New Frontier In Recruitment"
-        = link_to "Sign Up for the Beta", new_sessions_path, class: "sign-up"
+        %h2= "One Platform."
+
+        %p
+          Vetrify brings all Vancouver's software graduates onto a single platform so that you can reach them more effectively. Through connections with all of the Univeristies, Technical Coleges, and Student Societies in the lower mainland we are able to reach almost XXX graduating students per semester.
+
+        %p
+          This concentration of candidates gives your job the most exposure and helps find that perfect fit faster.
+
 
   %section.l-content-flow.m-about
     .centering-object
       .container
-        %h2= "We Find You Jobs."
+        %h2= "Passive Matching."
 
         %p
-          For computer science and software engineering students Vetrify is an online platform providing a streamlined and personalized way to connect with local tech startups.
-
-        %p
-          At Vetrify our goal is to redesign the application process. We enable our users to accurately convey their skills and personality while reducing the time spent building their applications.
-
-        %p
-          =link_to 'Sign up', new_sessions_path
-          =" for our beta and get noticed by the companies you care about"
+          Immediately after posting Vetrify shows you the candidates that best match your job. This means you can reach out to them faster and get them on the ground faster. These matches are based on data from both a candidate's LinkedIn profile as well as the software they've showcased on GitHub.
 
   %section.l-content-flow.m-team
     .centering-object
       .container
-        %h2= "Who We Are."
+        %h2= "Video Interviews."
 
         %p
-          Vetrify consists of a team of entrepreneurs, software engineers and business professionals on a mission to redesign the hiring process. As undergraduates of UBC, we have first hand experience with the problems that students face during the hiring process. We are tired of the inefficiencies of the traditional system and have set out to improve the process for our fellow students.
 
-        %p
-          When we aren’t working our butts off, you can find us at our favourite watering hole, Koerner’s Pub, enjoying a growler with nachos.
+

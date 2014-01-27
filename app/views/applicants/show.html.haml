@@ -48,22 +48,24 @@
               =link_to "GitHub", "/auth/github"
 
   .m-timeline
-    - if ( @repos.present? )
-      .col-3
-        .filters
-          %h3= "Filters"
-          .position_filter
-            = fa_icon "laptop"
-            =link_to "Work Experience", "#"
-          .education_filter
-            = fa_icon "bell"
-            =link_to "Education", "#"
+
+    .col-3
+      .filters
+        %h3= "Filters"
+        .position_filter
+          = fa_icon "laptop"
+          =link_to "Work Experience", "#"
+        .education_filter
+          = fa_icon "bell"
+          =link_to "Education", "#"
+        - if ( @repos.present? )
           .github_filter
             = fa_icon "github"
             =link_to "GitHub", "#"
 
-          =link_to "None", "#", { class: "all_filter", target: "new_tab" }
+        =link_to "None", "#", { class: "all_filter", target: "new_tab" }
 
+      - if ( @repos.present? )
         .repos
           %h3= "Active Repos"
           - @repos.first(5).each do |repo|
@@ -71,17 +73,7 @@
               %a.name{ href: repo.url, target: "new_tab" }
                 = fa_icon "github"
                 = "#{repo.name}"
-      .col-9
-        - @timeline.each do |list|
-          %p.year= list[1]
-          - list[0].each do |item|
-            -if item[1] == "position"
-              = render partial: "position", locals: { position: item[0], type: item[1] }
-            -elsif item[1] == "education"
-              = render partial: "education", locals: { education: item[0], type: item[1] }
-            -elsif item[1] == "repo"
-              = render partial: "repo", locals: { repo: item[0], type: item[1] }
-    - else
+    .col-9
       - @timeline.each do |list|
         %p.year= list[1]
         - list[0].each do |item|
@@ -91,3 +83,4 @@
             = render partial: "education", locals: { education: item[0], type: item[1] }
           -elsif item[1] == "repo"
             = render partial: "repo", locals: { repo: item[0], type: item[1] }
+

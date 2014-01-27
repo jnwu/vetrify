@@ -137,6 +137,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def applicant_params
-    params.require(:applicant).permit(:first_name, :last_name, :email, :password, :password, :password_digest)
+    params.require(:applicant).permit(:first_name, :last_name, :email, :image, :linkedin_url, :github_url)
   end
 end

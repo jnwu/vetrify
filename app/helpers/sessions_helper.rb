@@ -43,6 +43,7 @@ module SessionsHelper
 		end
 
 		def self.educations id, educations
+			return unless educations
  	    	educations.each do |education|
 	        	Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) or
 	          	Education.create(
@@ -57,6 +58,7 @@ module SessionsHelper
 		end
 
 		def self.positions id, positions
+			return unless positions
       		positions.each do |position|
 		        b = Business.find_or_create_by(name: position[:company][:name])
 		        p = Position.find_by(applicant_id: id, business_id: b.id, name: position[:title])
@@ -85,27 +87,41 @@ module SessionsHelper
 		BASE = "https://api.github.com"
 		REPOS = '/user/repos'
 
-		def self.repos token, id
-			return nil unless token
+		def self.repos token, a
+			return nil unless token or a
 			repos = JSON.parse(get(URI.parse("#{BASE}#{REPOS}?access_token=#{token}")).body)
+			return unless repos
 
-    	repos.each do |repo|
-        repo.symbolize_keys!
+			# Get all existing repos in db
+			# Delete repo if it does not exist in returned json
+			db = Repo.where applicant_id: a.id
+			c = false
+			db.each do |d| 
+				repos.each do |repo|
+					c = true if d.name == repo.name
+				end
 
-        r = Repo.find_by(name: repo[:name])
-        r = Repo.create(
-          applicant_id: id,
-          name:         repo[:name],
-          full_name:    repo[:full_name],
-          url:          repo[:html_url],
-          started_at:   Date.parse(repo[:created_at]),
-          updated_at:   Date.parse(repo[:updated_at])
-        ) unless r
+				Repo.destroy d.id unless c
+				c = false
+			end
 
-        yield r
-    	end
+			# Update user repos in db
+	    	repos.each do |repo|
+		        repo.symbolize_keys!
 
-  	end
+		        r = Repo.find_by name: repo[:name], applicant_id: a.id
+		        r = Repo.create(
+		          applicant_id: a.id,
+		          name:         repo[:name],
+		          full_name:    repo[:full_name],
+		          url:          repo[:html_url],
+		          started_at:   Date.parse(repo[:created_at]),
+		          updated_at:   Date.parse(repo[:updated_at])
+		        ) unless r
+
+		        yield r
+    		end
+  		end
 
 	  	def self.languages token, r
 			return nil unless name or full_name or token

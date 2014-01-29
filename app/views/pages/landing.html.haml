@@ -1,11 +1,11 @@
+= render "shared/facebook_share"
 .m-nav
-  = image_tag "vetrify_logo_color.png"
-  = link_to "Join Us", new_sessions_path
-  = link_to "Businesses", business_path
+  = image_tag "vetrify_logo_color.png", alt: "Vetrify Logo"
   = link_to "About", "#", class: "about"
+  = link_to "Businesses", business_path
+  = link_to "Login", new_sessions_path
 
 .m-social
-  = render "shared/facebook_share"
   .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
   = render partial: "shared/twitter_share", locals: { url: nil }
 
@@ -13,7 +13,7 @@
   %section.l-content-flow.m-landing
     .centering-object
       .container
-        %h1= "Find A New Frontier In Recruitment"
+        %h1= "Simplify Your Job Search"
         = link_to "Sign Up for the Beta", new_sessions_path, class: "sign-up"
 
   %section.l-content-flow.m-about
@@ -25,7 +25,7 @@
           For computer science and software engineering students Vetrify is an online platform providing a streamlined and personalized way to connect with local tech startups.
 
         %p
-          At Vetrify our goal is to redesign the application process. We enable our users to accurately convey their skills and personality while reducing the time spent building their applications.
+          At Vetrify our goal is to redesign the job application process. We enable our users to accurately convey their skills and personality while reducing the time spent applying for jobs.
 
         %p
           =link_to 'Sign up', new_sessions_path
@@ -37,7 +37,7 @@
         %h2= "Who We Are."
 
         %p
-          Vetrify consists of a team of entrepreneurs, software engineers and business professionals on a mission to redesign the hiring process. As undergraduates of UBC, we have first hand experience with the problems that students face during the hiring process. We are tired of the inefficiencies of the traditional system and have set out to improve the process for our fellow students.
+          Vetrify consists of a team of entrepreneurs, software engineers and business professionals on a mission to redesign the hiring process. As undergraduates at UBC, we have first hand experience with the problems that students face during their job search. We are tired of the inefficiencies in the traditional system and have set out to improve the process for our fellow students.
 
         %p
           When we aren’t working our butts off, you can find us at our favourite watering hole, Koerner’s Pub, enjoying a growler with nachos.

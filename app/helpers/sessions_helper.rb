@@ -28,7 +28,7 @@ module SessionsHelper
 		def self.user info
 	        a = Applicant.find_by email: info[:email]
 
-	        unless a 
+	        unless a
 		      	a = Applicant.create(
 			        email:      	info[:email],
 			        first_name: 	info[:first_name],
@@ -43,11 +43,12 @@ module SessionsHelper
 		end
 
 		def self.educations id, educations
+			return unless educations
  	    	educations.each do |education|
 	        	Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) or
-	          	Education.create(          
-	            	applicant_id: id, 
-	            	school:       education[:schoolName], 
+	          	Education.create(
+	            	applicant_id: id,
+	            	school:       education[:schoolName],
 	            	degree:       education[:degree],
 	            	field:        education[:fieldOfStudy],
 	            	started_at:   education[:startDate][:year],
@@ -57,9 +58,10 @@ module SessionsHelper
 		end
 
 		def self.positions id, positions
+			return unless positions
       		positions.each do |position|
 		        b = Business.find_or_create_by(name: position[:company][:name])
-		        p = Position.find_by(applicant_id: id, business_id: b.id, name: position[:title])       
+		        p = Position.find_by(applicant_id: id, business_id: b.id, name: position[:title])
 		        p = Position.create(
 		            applicant_id: id,
 		            business_id:  b.id,
@@ -69,7 +71,7 @@ module SessionsHelper
 		            ended_at:     (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
 		        ) unless p
 
-		        if p.summary != position[:summary] 
+		        if p.summary != position[:summary]
 		          Position.update(
 		            p.id,
 		            :summary  =>  position[:summary],
@@ -85,29 +87,44 @@ module SessionsHelper
 		BASE = "https://api.github.com"
 		REPOS = '/user/repos'
 
-		def self.repos token, id
-			return nil unless token	
+		def self.repos token, a
+			return nil unless token or a
 			repos = JSON.parse(get(URI.parse("#{BASE}#{REPOS}?access_token=#{token}")).body)
+			return unless repos
 
-	      	repos.each do |repo|
+			# Get all existing repos in db
+			# Delete repo if it does not exist in returned json
+			db = Repo.where applicant_id: a.id
+			c = false
+			db.each do |d| 
+				repos.each do |repo|
+					c = true if d.name == repo.name
+				end
+
+				Repo.destroy d.id unless c
+				c = false
+			end
+
+			# Update user repos in db
+	    	repos.each do |repo|
 		        repo.symbolize_keys!
 
-		        r = Repo.find_by(name: repo[:name])
-		        r = Repo.create(          
-		          applicant_id: id,
-		          name:         repo[:name], 
-		          full_name:    repo[:full_name], 
+		        r = Repo.find_by name: repo[:name], applicant_id: a.id
+		        r = Repo.create(
+		          applicant_id: a.id,
+		          name:         repo[:name],
+		          full_name:    repo[:full_name],
 		          url:          repo[:html_url],
 		          started_at:   Date.parse(repo[:created_at]),
 		          updated_at:   Date.parse(repo[:updated_at])
-		        ) unless r       
+		        ) unless r
 
 		        yield r
-	      	end
-	  	end
+    		end
+  		end
 
 	  	def self.languages token, r
-			return nil unless name or full_name or token	
+			return nil unless name or full_name or token
 			languages = JSON.parse(get(URI.parse("#{BASE}/repos/#{r.full_name}/languages?access_token=#{token}")).body)
         	languages.symbolize_keys!
 	        total = 0
@@ -121,11 +138,11 @@ module SessionsHelper
 	          s = Skill.find_or_create_by name: key
 	          Language.find_by(repo_id: r.id, skill_id: s.id) or
 	            Language.create(
-	              repo_id:  r.id, 
+	              repo_id:  r.id,
 	              skill_id: s.id,
 	              percent:  ((languages[key].to_f / total) * 100).round(2)
 	            )
-	        end			
+	        end
 	  	end
 	end
 
@@ -151,5 +168,5 @@ module SessionsHelper
 
 			JSON.parse(post(uri, payload).body)
 		end
-	end	
+	end
 end

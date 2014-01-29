@@ -6,7 +6,9 @@
     =javascript_include_tag "application", "data-turbolinks-track" => true
     = content_for?(:head) ? yeild(:head) : nil
     = csrf_meta_tags
-    %meta{ name: "description", content: "Vetrify matches students to jobs and allows them to apply with a simple process minimizing time spent on applications and maximizing application impact for students." }
+    %meta{ name: "description", content: "Vetrify matches students with start ups and allows them to discover new jobs. Vetrify's job application process minimizes time spent and maximizes each application's impact." }
+    %meta{ charset: "utf-8" }
+    %meta{ name: 'author', content: 'Vetrify' }
 
   %body
     = yield

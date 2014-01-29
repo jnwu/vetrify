@@ -1,13 +1,9 @@
-.m-nav
+- content_for(:nav) do
   = image_tag "vetrify_logo_color.png"
   = mail_to "info@vetrify.com", "Inquire"
   = link_to "Students", root_path
 
-.m-social
-  = render "shared/facebook_share"
-  .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
-  = render partial: "shared/twitter_share", locals: { url: nil }
-
+= render "shared/social_links"
 
 %section.m-landing.m-business-landing
   .container
@@ -48,6 +44,22 @@
 
         %p
           These video interviews allow you to screen applicants for cultural fit before they ever walk through your door. Don’t struggle to schedule and conduct initial interviews when you can pre-screen ten applicants in an hour.
+
+%section.jumbotron
+  %h1= "Contact Us"
+  = form_tag dispatch_email_path, method: :post do
+    .name
+      = label_tag "user_info[name]", "Name"
+      = text_field_tag "user_info[name]"
+    .email
+      = label_tag "user_info[email]", "Email"
+      = text_field_tag "user_info[email]"
+    .message
+      = label_tag "user_info[message]", "Message"
+      = text_area_tag "user_info[message]", "", size: "60x10"
+
+    = submit_tag "Send"
+
 
 
 

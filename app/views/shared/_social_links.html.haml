@@ -1,0 +1,4 @@
+.m-social
+  = render "shared/facebook_share"
+  .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
+  = render partial: "shared/twitter_share", locals: { url: nil }

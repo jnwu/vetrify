@@ -1,11 +1,7 @@
 -content_for(:title) do
   =@applicant.name
 
-= render "shared/facebook_share"
-
-.m-social
-  .fb-share-button{ "data-href"=> "http://www.vetrify.com", "data-type"=>"button" }
-  = render partial: "shared/twitter_share", locals: { url: "http://www.vetrify.com" }
+=render "shared/social_links"
 
 %section.container.m-applicant-header
   .row

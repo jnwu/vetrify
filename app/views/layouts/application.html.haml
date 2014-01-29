@@ -11,4 +11,8 @@
     %meta{ name: 'author', content: 'Vetrify' }
 
   %body
+    - if content_for?(:nav)
+      %nav.m-nav
+        = yield(:nav)
+
     = yield

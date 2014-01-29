@@ -1,42 +1,40 @@
 .m-applicant-header
-  color:              black
-  margin:             20px
-  position:           relative
+  +small-box-shadow
+  color:              white
 
-  .container
-    +clearfix
-    +small-box-shadow
-    margin:           20px auto
-    width:            $grid_width
+  h1
+    margin:           10px 0
 
-  .details
-    width:            688px
+  h2
+    font-size:        24px
+
+  img
     float:            left
+    display:          block
     height:           125px
-    background-color: #B7C3C0
-    padding:          20px
-
-    h1
-      margin:         10px 0
-
-    h2
-      font-size:      1.2em
-
+    width:            125px
+    border-radius:    125px
+    border:           solid $orange 5px
+    margin:           15px
 
   .summary
     position: relative
     width: 100%
     height: 30px
+    bottom: 0
 
     .icon
       float: left
       margin: 0 10px 0 0
 
+  .details
+    +clearfix
+    background-color:   #292e37
+
   .add-box
-    float:            left
-    width:            $grid_width
     height:           50px
     background-color: white
+    color:            black
 
     .item-list
       text-align: center
@@ -60,17 +58,12 @@
         &:hover > *
           color:      rgba(255,102,0, 1)
 
-  .photo-box
-    float:            left
-    width:            256px
-    background-color: #404040
-    color:            white
-    height:           125px
-    padding:          20px
+  // .photo-box
+  //   float:            left
+  //   width:            256px
+  //   background-color: #404040
+  //   color:            white
+  //   height:           125px
+  //   padding:          20px
 
-    img
-      display:          block
-      margin:           auto
-      height:           125px
-      width:            125px
-      border-radius:    125px
+

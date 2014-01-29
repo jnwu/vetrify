@@ -1,8 +1,6 @@
 require 'date'
 
 class SessionsController < ApplicationController
-  before_action :set_session, only: [:create, :destroy]
-
   # GET /sessions/new
   def new
     redirect_to "/auth/linkedin"
@@ -55,15 +53,7 @@ class SessionsController < ApplicationController
       }
     end
 
-    redirect_to applicant_path(session[:user_id]), :notice => "Authenticated successfully"
+    flash[:id] = session[:user_id]
+    redirect_to '/home', :notice => "Authenticated successfully"
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_session
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def session_params
-    end
 end

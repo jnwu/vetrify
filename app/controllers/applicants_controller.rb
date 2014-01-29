@@ -29,41 +29,16 @@ class ApplicantsController < ApplicationController
   # POST /applicants
   # POST /applicants.json
   def create
-    @applicant = Applicant.new(applicant_params)
-
-    respond_to do |format|
-      if @applicant.save
-        format.html { redirect_to @applicant, notice: 'Applicant was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @applicant }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @applicant.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /applicants/1
   # PATCH/PUT /applicants/1.json
   def update
-    respond_to do |format|
-      if @applicant.update(applicant_params)
-        format.html { redirect_to @applicant, notice: 'Applicant was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @applicant.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # DELETE /applicants/1
   # DELETE /applicants/1.json
   def destroy
-    @applicant.destroy
-    respond_to do |format|
-      format.html { redirect_to applicants_url }
-      format.json { head :no_content }
-    end
   end
 
 private
@@ -132,7 +107,11 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_applicant
-    @applicant = Applicant.find(params[:id])
+    if flash[:id].nil?
+      redirect_to root_url 
+    else
+      @applicant = Applicant.find flash[:id]
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

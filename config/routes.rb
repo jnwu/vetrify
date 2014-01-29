@@ -1,14 +1,12 @@
 Vetrify::Application.routes.draw do
 
-  resources :applicants
+  root to: 'pages#landing'
 
-  resource :sessions, only: [:new, :create, :destroy]
-
-  resources :businesses
+  resource :sessions, only: :new
 
   get '/auth/:provider/callback', :to => 'sessions#auth_callback'
 
-  root to: 'pages#landing'
+  get '/home', :to => 'applicants#show'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

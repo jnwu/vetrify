@@ -1,12 +1,13 @@
 = render "shared/facebook_share"
 .m-nav
   = image_tag "vetrify_logo_color.png", alt: "Vetrify Logo"
-  = link_to "Login", new_sessions_path
   = link_to "About", "#", class: "about"
+  = link_to "Businesses", business_path
+  = link_to "Login", new_sessions_path
 
-/ .m-social
-/   .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
-/   = render partial: "shared/twitter_share", locals: { url: nil }
+.m-social
+  .fb-share-button{ "data-href"=> "http://vetrify.com", "data-type"=>"button" }
+  = render partial: "shared/twitter_share", locals: { url: nil }
 
 .l-content
   %section.l-content-flow.m-landing

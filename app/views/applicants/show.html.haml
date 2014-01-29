@@ -7,49 +7,48 @@
   .fb-share-button{ "data-href"=> "http://www.vetrify.com", "data-type"=>"button" }
   = render partial: "shared/twitter_share", locals: { url: "http://www.vetrify.com" }
 
-%section
-  .m-applicant-header
-    .container
-      .photo-box
-        = image_tag(@applicant.image, alt: "applicant profile picture", size: "100X100")
+%section.container.m-applicant-header
+  .row
+    .col-md-12.details
+      = image_tag @applicant.image, { alt: "applicant profile picture" }
 
-      .details
-        %h1= "#{@applicant.name}"
+      %h1= "#{@applicant.name}"
 
-        - if @education.present?
-          %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
+      - if @education.present?
+        %h2= "#{@education.school} (#{@education.started_at} - #{@education.ended_at})"
 
-        .summary
-          -if @positions.present?
-            %p.icon
-              = fa_icon "laptop"
-              = "Work x #{@positions.count}"
-          -if @educations.present?
-            %p.icon
-              = fa_icon "bell"
-              = "School x #{@educations.count}"
-          -if @repos.present?
-            %p.icon
-              = fa_icon "github"
-              = "Open Source x #{@repos.count}"
+      .summary
+        -if @positions.present?
+          %p.icon
+            = fa_icon "laptop"
+            = "Work x #{@positions.count}"
+        -if @educations.present?
+          %p.icon
+            = fa_icon "bell"
+            = "School x #{@educations.count}"
+        -if @repos.present?
+          %p.icon
+            = fa_icon "github"
+            = "Open Source x #{@repos.count}"
 
-      .add-box
-        .item-list
+    .col-md-12.add-box
+      .item-list
+        .item
+          = fa_icon "linkedin-square 2x"
+          = link_to "LinkedIn", @applicant.linkedin_url
+        - if @applicant.github_url.present?
           .item
-            = fa_icon "linkedin-square 2x"
-            =link_to "LinkedIn", @applicant.linkedin_url
-          - if @applicant.github_url.present?
-            .item
-              = fa_icon "github 2x"
-              =link_to "GitHub",@applicant.github_url
-          - elsif session[:user_id].present?
-            .item
-              = fa_icon "github 2x"
-              =link_to "GitHub", "/auth/github"
+            = fa_icon "github 2x"
+            =link_to "GitHub",@applicant.github_url
+        - elsif session[:user_id].present?
+          .item
+            = fa_icon "github 2x"
+            =link_to "GitHub", "/auth/github"
 
-  .m-timeline
+%section.container.m-timeline
 
-    .col-3
+  .row
+    .col-md-3
       .filters
         %h3= "Filters"
         .position_filter.filter
@@ -62,8 +61,8 @@
           .github_filter.filter
             = fa_icon "github"
             =link_to "GitHub", "#"
-
-        =link_to "None", "#", { class: "all_filter", target: "new_tab" }
+        .all_filter.filter
+          =link_to "None", "#", { class: "all_filter", target: "new_tab" }
 
       - if ( @repos.present? )
         .repos
@@ -73,14 +72,16 @@
               %a.name{ href: repo.url, target: "new_tab" }
                 = fa_icon "github"
                 = "#{repo.name}"
-    .col-9
-      - @timeline.each do |list|
-        %p.year= list[1]
-        - list[0].each do |item|
-          -if item[1] == "position"
-            = render partial: "position", locals: { position: item[0], type: item[1] }
-          -elsif item[1] == "education"
-            = render partial: "education", locals: { education: item[0], type: item[1] }
-          -elsif item[1] == "repo"
-            = render partial: "repo", locals: { repo: item[0], type: item[1] }
+
+    .col-md-9
+      .row
+        - @timeline.each do |list|
+          %p.year= list[1]
+          - list[0].each do |item|
+            -if item[1] == "position"
+              = render partial: "position", locals: { position: item[0], type: item[1] }
+            -elsif item[1] == "education"
+              = render partial: "education", locals: { education: item[0], type: item[1] }
+            -elsif item[1] == "repo"
+              = render partial: "repo", locals: { repo: item[0], type: item[1] }
 

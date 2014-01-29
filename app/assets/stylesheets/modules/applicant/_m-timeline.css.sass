@@ -1,9 +1,6 @@
 .m-timeline
   +clearfix
   color: black
-  width: $grid_width
-  margin: 20px auto
-  position relative
 
   .year
     position:   relative
@@ -12,40 +9,26 @@
     text-align: center
     font-size:  16pt
 
-  .col-3
-    +grid-3
-    float:            left
-    margin:           10px 0
+  .filters, .repos
+    +small-box-shadow
+    +clearfix
+    background-color: white
+    font-size:        14pt
+    margin:           10px -15px
+    padding:          0 15px 15px
 
-    .filters, .repos
-      +small-box-shadow
-      +clearfix
-      width: 260px
-      background-color: white
-      padding:          0 20px 20px 20px
-      font-size:        14pt
-      margin-top:       10px
+    &:before
+      content:          ""
+      height:           5px
+      background-color: rgba(255,102,0, .7)
+      margin:           0 -15px
 
-      &:before
-        content:          ""
-        height:           5px
-        background-color: rgba(255,102,0, .7)
-        margin:           0 -20px
+    .filter, .repo
+      margin:           10px 0
 
-      h3
-        margin:  0
-        padding: 10px 0
+    a
+      text-decoration:  none
 
-      .filter
-        margin:           10px 0
+  .filters
+    margin-top: 50px
 
-      a
-        text-decoration:  none
-
-    .filters
-      margin-top: 35px
-
-
-  .col-9
-    +grid-8
-    float: right

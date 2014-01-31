@@ -3,11 +3,14 @@ Vetrify::Application.routes.draw do
   root to: 'pages#landing'
 
   resource :sessions, only: :new
+
   post "/dispatch_email", to: "pages#dispatch_email"
 
   get '/auth/:provider/callback', to: 'sessions#auth_callback'
   get '/business' => 'pages#business_landing'
   get '/home', :to => 'applicants#show'
+
+  post '/subscribe', :to => 'businesses#subscribe'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -37,6 +37,13 @@ class BusinessesController < ApplicationController
     end
   end
 
+  def subscribe
+    bu = BusinessUser.new business_user_params
+    bu.save
+
+    redirect_to business_path
+  end
+
   # PATCH/PUT /businesses/1
   # PATCH/PUT /businesses/1.json
   def update
@@ -70,5 +77,9 @@ class BusinessesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def business_params
       params.require(:business).permit(:name, :business_type, :founded_year, :status, :location, :size, :stock_exchange, :ticker, :specialties, :culture, :domain, :url, :twitter, :facebook, :linkedin)
+    end
+
+    def business_user_params
+      params.require(:business_user).permit(:email, :first_name, :last_name, :title)
     end
 end

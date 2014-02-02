@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
   # POST /sessions
   # POST /sessions.json
   def create
-
     user = Applicant.find_by_email(params[:email])
 
     if user && user.authenticate(params[:password])
@@ -34,6 +33,12 @@ class SessionsController < ApplicationController
 
     if auth[:provider] == 'linkedin'
       a = SessionsHelper::LinkedInHelper.user auth[:info]
+      
+      unless a.token
+        a.token = Token.create      
+        a.token.key = auth[:extra][:access_token].token
+        a.token.save
+      end
 
       # Update entries for user positions and educations
       SessionsHelper::LinkedInHelper.positions a.id, auth[:extra][:raw_info][:positions][:values]
@@ -54,6 +59,6 @@ class SessionsController < ApplicationController
     end
 
     flash[:id] = session[:user_id]
-    redirect_to '/home', :notice => "Authenticated successfully"
+    redirect_to '/applicant', :notice => "Authenticated successfully"
   end
 end

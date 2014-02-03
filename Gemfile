@@ -42,7 +42,7 @@ gem 'sass-rails', '~> 4.0.0'
 
 # Omniauth authentication strategies
 gem 'omniauth', '~> 1.1.4'
-gem 'omniauth-linkedin', '~> 0.1.0'
+gem 'omniauth-linkedin-oauth2', '~> 0.1.5'
 gem 'omniauth-github', '~> 1.1.1'
 
 # Twitter bootstrap

@@ -89,7 +89,6 @@ GEM
     minitest (4.7.5)
     multi_json (1.8.2)
     multipart-post (1.2.0)
-    oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -102,11 +101,9 @@ GEM
     omniauth-github (1.1.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    omniauth-linkedin (0.1.0)
-      omniauth-oauth (~> 1.0)
-    omniauth-oauth (1.0.1)
-      oauth
+    omniauth-linkedin-oauth2 (0.1.5)
       omniauth (~> 1.0)
+      omniauth-oauth2
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -194,7 +191,7 @@ DEPENDENCIES
   jquery-scrollto-rails
   omniauth (~> 1.1.4)
   omniauth-github (~> 1.1.1)
-  omniauth-linkedin (~> 0.1.0)
+  omniauth-linkedin-oauth2 (~> 0.1.5)
   pg (~> 0.17.0)
   pry-debugger
   pry-rails

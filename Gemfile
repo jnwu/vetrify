@@ -18,7 +18,10 @@ group :test do
   gem 'pry-debugger'
 end
 
-# email validation for Business Users
+# sitemap generation for SEO
+gem 'sitemap_generator'
+
+# email validation
 gem 'email_validator'
 
 # Bring in the jQuery plugin scrollTo

@@ -2,6 +2,7 @@
 SitemapGenerator::Sitemap.default_host = "http://www.vetrify.com"
 
 SitemapGenerator::Sitemap.create do
+  add business_path, :priority => 0.5, :changefreq => 'weekly'
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.

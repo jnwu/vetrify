@@ -1,1 +1,2 @@
 User-agent: *
+Sitemap: http://www.vetrify.com/sitemap.xml.gz

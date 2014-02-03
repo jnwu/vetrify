@@ -45,21 +45,18 @@
         %p
           These video interviews allow you to screen applicants for cultural fit before they ever walk through your door. Don’t struggle to schedule and conduct initial interviews when you can pre-screen ten applicants in an hour.
 
-%section.jumbotron
-  %h1= "Contact Us"
-  = form_tag dispatch_email_path, method: :post do
-    .name
-      = label_tag "user_info[name]", "Name"
-      = text_field_tag "user_info[name]"
-    .email
-      = label_tag "user_info[email]", "Email"
-      = text_field_tag "user_info[email]"
-    .message
-      = label_tag "user_info[message]", "Message"
-      = text_area_tag "user_info[message]", "", size: "60x10"
+%section.m-landing.m-inquire
+  .container
+    .row
+      .col-md-2
+      .col-md-8
+        %h1= "Want More Information?"
+        %p
+          Vetrify welcomes all inquiries from companies seeking new graduate hires. Simply leave your email in the box below and our sales team will be in touch!
 
-    = submit_tag "Send"
+          = form_tag inquire_path, method: :post do
+            .email.form-group
+              = label_tag "business_user[email]", "Email", {class: "sr-only"}
+              = text_field_tag "business_user[email]", nil, placeholder: "Email", class: "form-control"
 
-
-
-
+            = submit_tag "Get In Touch", class: "btn btn-default"

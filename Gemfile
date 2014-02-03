@@ -20,6 +20,9 @@ group :test do
   gem 'pry-debugger'
 end
 
+# email validation for Business Users
+gem 'email_validator'
+
 # Bring in the jQuery plugin scrollTo
 gem "jquery-scrollto-rails"
 

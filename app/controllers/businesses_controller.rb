@@ -40,9 +40,12 @@ class BusinessesController < ApplicationController
   def inquire
     bu = BusinessUser.find_by email: business_user_params.symbolize_keys[:email]
     bu = BusinessUser.new business_user_params unless bu
-    bu.save
 
-    redirect_to business_path
+    if bu.save
+      redirect_to business_path, flash[:notice] => "Thanks - We'll be in touch!"
+    else
+      redirect_to business_path, flash[:notice] => "Sorry that wasn't a valid email - please try again"
+    end
   end
 
   # PATCH/PUT /businesses/1

@@ -9,13 +9,13 @@ gem 'unicorn', '~> 4.7.0'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'pry-rails'
+  gem 'pry-debugger'
 end
 
 group :test do
   gem "factory_girl_rails", "~> 4.0"
   gem 'ffaker'
-  gem 'pry-rails'
-  gem 'pry-debugger'
 end
 
 # sitemap generation for SEO

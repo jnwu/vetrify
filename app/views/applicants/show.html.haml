@@ -6,7 +6,8 @@
 %section.container.m-applicant-header
   .row
     .col-md-12.details
-      = image_tag @applicant.image, { alt: "applicant profile picture" }
+      - if @applicant.image.present?
+        = image_tag @applicant.image, { alt: "applicant profile picture" }
 
       %h1= "#{@applicant.name}"
 
@@ -42,7 +43,6 @@
             =link_to "GitHub", "/auth/github"
 
 %section.container.m-timeline
-
   .row
     .col-md-3
       .filters

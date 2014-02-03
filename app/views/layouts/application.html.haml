@@ -2,8 +2,8 @@
 %html.wf-loading
   %head
     %title= content_for?(:title) ? yield(:title) + " - Vetrify" : "Vetrify - New Graduate Jobs"
-    =stylesheet_link_tag    "application", async: true, media: "all", "data-turbolinks-track" => true
-    =javascript_include_tag "application", "data-turbolinks-track" => true
+    =stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    =javascript_include_tag "application", async: true, "data-turbolinks-track" => true
     = content_for?(:head) ? yeild(:head) : nil
     = csrf_meta_tags
     %meta{ name: "description", content: "Vetrify matches students with start ups and allows them to discover new jobs. Vetrify's job application process minimizes time spent and maximizes each application's impact." }
@@ -11,6 +11,7 @@
     %meta{ name: 'author', content: 'Vetrify' }
     %meta{ name: "msvalidate.01", content: "28C3843B08B787662C61E5A61F6CF6E6" }
     %meta{ name: "p:domain_verify", content: "e0d48c530099639fb7d1071c8011260b" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
   %body
     - if content_for?(:nav)
       %nav.m-nav

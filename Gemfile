@@ -18,6 +18,8 @@ group :test do
   gem 'ffaker'
 end
 
+gem "yui-compressor", "~> 0.12.0"
+
 # sitemap generation for SEO
 gem 'sitemap_generator'
 

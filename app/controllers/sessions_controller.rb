@@ -34,11 +34,11 @@ class SessionsController < ApplicationController
     if auth[:provider] == 'linkedin'
       a = SessionsHelper::LinkedInHelper.user auth[:info]
 
-      unless a.token
-        a.token = Token.create
-        a.token.key = auth[:extra][:raw_info][:id]
-        a.token.save
-      end
+      # unless a.token
+      #   a.token = Token.create
+      #   a.token.key = auth[:extra][:raw_info][:id]
+      #   a.token.save
+      # end
 
       # Update entries for user positions and educations
       SessionsHelper::LinkedInHelper.positions a.id, auth[:extra][:raw_info][:positions][:values]

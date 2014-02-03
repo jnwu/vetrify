@@ -45,15 +45,16 @@ module SessionsHelper
 		def self.educations id, educations
 			return unless educations
  	    	educations.each do |education|
-	        	Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) or
+				e = Education.find_by(applicant_id: id, school: education[:schoolName]) unless education[:startDate]	        	
+	        	e = Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) if education[:startDate]
 	          	Education.create(
 	            	applicant_id: id,
 	            	school:       education[:schoolName],
 	            	degree:       education[:degree],
 	            	field:        education[:fieldOfStudy],
-	            	started_at:   education[:startDate][:year],
-	            	ended_at:     education[:endDate][:year]
-	          	)
+	            	started_at:   (education[:startDate] ? education[:startDate][:year] : nil),
+	            	ended_at:     (education[:endDate] ? education[:endDate][:year] : nil)
+	          	) unless e
       		end
 		end
 

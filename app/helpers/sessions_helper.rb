@@ -36,7 +36,7 @@ module SessionsHelper
 			        linkedin_url:  	info[:urls][:public_profile],
 			        image:      	info[:image]
 	      		)
-				SessionsHelper::MandrillHelper.send a.email
+				SessionsHelper::MandrillHelper.template a.email
 	        end
 
 	        return a
@@ -45,15 +45,16 @@ module SessionsHelper
 		def self.educations id, educations
 			return unless educations
  	    	educations.each do |education|
-	        	Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) or
+				e = Education.find_by(applicant_id: id, school: education[:schoolName]) unless education[:startDate]	        	
+	        	e = Education.find_by(applicant_id: id, school: education[:schoolName], started_at: education[:startDate][:year]) if education[:startDate]
 	          	Education.create(
 	            	applicant_id: id,
 	            	school:       education[:schoolName],
 	            	degree:       education[:degree],
 	            	field:        education[:fieldOfStudy],
-	            	started_at:   education[:startDate][:year],
-	            	ended_at:     education[:endDate][:year]
-	          	)
+	            	started_at:   (education[:startDate] ? education[:startDate][:year] : nil),
+	            	ended_at:     (education[:endDate] ? education[:endDate][:year] : nil)
+	          	) unless e
       		end
 		end
 
@@ -148,13 +149,14 @@ module SessionsHelper
 
 	class MandrillHelper
 		extend SessionsHelper
-		BASE = 'https://mandrillapp.com/api/1.0/messages/send-template.json'
+		RAW = 'https://mandrillapp.com/api/1.0/messages/send-raw.json'
+		TEMPLATE = 'https://mandrillapp.com/api/1.0/messages/send-template.json'
 
-		def self.send email
+		def self.template email
 			return nil unless email
 
 			key = Api.find_by provider: 'mandrill', tag: 'client_key'
-			uri = URI.parse(BASE)
+			uri = URI.parse(TEMPLATE)
 			payload = {
 			    :key 				=> key.key,
 			    :template_name 		=> "Vetrify",
@@ -164,6 +166,26 @@ module SessionsHelper
 			    },
 			    :async 				=> false,
 			    :ip_pool 			=> "Main Pool"
+			}.to_json
+
+			JSON.parse(post(uri, payload).body)
+		end
+
+		def self.raw email, body
+			return nil unless email || body
+
+			key = Api.find_by provider: 'mandrill', tag: 'client_key'
+			uri = URI.parse(RAW)
+			payload = {
+			    :key 				=> key.key,
+			    :raw_message 		=> "From: info@vetrify.com\nTo: #{email}\nSubject: Applicants List\n\n#{body}",
+			    :from_email 		=> "info@vetrify.com",
+			    :from_name 			=> "Info",
+			    :to 				=> [email],
+			    :async 				=> false,
+			    :ip_pool 			=> "Main Pool",
+			    :send_at 			=> "",
+			    :return_path_domain => nil
 			}.to_json
 
 			JSON.parse(post(uri, payload).body)

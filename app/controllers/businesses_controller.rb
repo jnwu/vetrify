@@ -37,8 +37,9 @@ class BusinessesController < ApplicationController
     end
   end
 
-  def subscribe
-    bu = BusinessUser.new business_user_params
+  def inquire
+    bu = BusinessUser.find_by email: business_user_params.symbolize_keys[:email]
+    bu = BusinessUser.new business_user_params unless bu
     bu.save
 
     redirect_to business_path

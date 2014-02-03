@@ -1,20 +1,29 @@
 class ApplicantsController < ApplicationController
-  before_action :set_applicant, only: [:show, :edit, :update, :destroy]
+  before_action :set_applicant, only: :show
 
-  # GET /applicants
-  # GET /applicants.json
+  # GET /applicant
   def index
     @applicants = Applicant.all
   end
 
-  # GET /applicants/1
-  # GET /applicants/1.json
+  # GET /applicant
   def show
     @education  = @applicant.educations.first
     @positions  = @applicant.positions.order(ended_at: :desc)
     @educations = @applicant.educations.order(ended_at: :desc)
     @repos      = @applicant.repos.order(updated_at: :desc)
     @timeline   = build_timeline( @educations, @positions, @repos )
+  end
+
+  # GET /applicant/1
+  def pry
+    a = Applicant.find params[:id]
+    if a && a.token && a.token.key == params[:token]
+      flash[:id] = params[:id]
+      redirect_to action: :show
+    else
+      redirect_to root_url 
+    end
   end
 
   # GET /applicants/new

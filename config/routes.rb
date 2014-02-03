@@ -6,11 +6,11 @@ Vetrify::Application.routes.draw do
 
   post "/dispatch_email", to: "pages#dispatch_email"
 
-  get '/auth/:provider/callback', to: 'sessions#auth_callback'
-  get '/business' => 'pages#business_landing'
-  get '/home', :to => 'applicants#show'
+  get '/applicant', :to => 'applicants#show'
 
-  post '/subscribe', :to => 'businesses#subscribe'
+  get '/applicant/:id', :to => 'applicants#pry'
+
+  post '/inquire', :to => 'businesses#inquire'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

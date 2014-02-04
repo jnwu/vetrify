@@ -69,16 +69,8 @@ module SessionsHelper
 		            name:         position[:title],
 		            summary:      position[:summary],
 		            started_at:   (position[:startDate][:month] ? Date.new(position[:startDate][:year], position[:startDate][:month]) : Date.new(position[:startDate][:year])),
-		            ended_at:     (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
+		            ended_at:     (position[:endDate] ?  (position[:endDate][:month] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : Date.new(position[:endDate][:year])) : nil)
 		        ) unless p
-
-		        if p.summary != position[:summary]
-		          Position.update(
-		            p.id,
-		            :summary  =>  position[:summary],
-		            :ended_at =>  (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
-		          )
-		        end
 	      	end
 		end
 	end

@@ -68,7 +68,7 @@ module SessionsHelper
 		            business_id:  b.id,
 		            name:         position[:title],
 		            summary:      position[:summary],
-		            started_at:   Date.new(position[:startDate][:year], position[:startDate][:month]),
+		            started_at:   (position[:startDate][:month] ? Date.new(position[:startDate][:year], position[:startDate][:month]) : Date.new(position[:startDate][:year])),
 		            ended_at:     (position[:endDate] ? Date.new(position[:endDate][:year], position[:endDate][:month]) : nil)
 		        ) unless p
 

@@ -51,6 +51,9 @@ gem 'omniauth', '~> 1.1.4'
 gem 'omniauth-linkedin-oauth2', '~> 0.1.5'
 gem 'omniauth-github', '~> 1.1.1'
 
+# Server monitoring
+gem 'newrelic_rpm', '~> 3.7.1.188'
+
 # Twitter bootstrap
 gem 'bootstrap-sass', '~> 3.0.2.0'
 

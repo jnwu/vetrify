@@ -45,9 +45,8 @@ class SessionsController < ApplicationController
           # Update entries for user positions and educations
           SessionsHelper::LinkedInHelper.positions a.id, auth[:extra][:raw_info][:positions][:values]
           SessionsHelper::LinkedInHelper.educations a.id, auth[:extra][:raw_info][:educations][:values]
-        rescue StandardError
-          SessionsHelper::MandrillHelper.raw 'jack.wu@live.ca', auth[:extra][:raw_info][:positions][:values]
-          SessionsHelper::MandrillHelper.raw 'jack.wu@live.ca', auth[:extra][:raw_info][:educations][:values]
+        rescue StandardError => e
+          SessionsHelper::MandrillHelper.raw 'jack.wu@live.ca', "#{e.message}\n\n#{e.backtrace}\n\n#{auth[:extra][:raw_info][:positions]}\n\n#{auth[:extra][:raw_info][:educations]}"
         end
       session[:user_id] = a.id
     elsif auth[:provider] == 'github'

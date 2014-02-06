@@ -33,19 +33,22 @@ class SessionsController < ApplicationController
 
     if auth[:provider] == 'linkedin'
       a = SessionsHelper::LinkedInHelper.user auth[:info]
+        begin
+          unless a.token
+             a.token = Token.create
+             rand = SecureRandom.base64
+             rand = SecureRandom.base64 while Token.find_by key: rand
+             a.token.key = rand
+             a.token.save
+          end
 
-      unless a.token
-         a.token = Token.create
-         rand = SecureRandom.base64
-         rand = SecureRandom.base64 while Token.find_by key: rand
-         a.token.key = rand
-         a.token.save
-      end
-
-      # Update entries for user positions and educations
-      SessionsHelper::LinkedInHelper.positions a.id, auth[:extra][:raw_info][:positions][:values]
-      SessionsHelper::LinkedInHelper.educations a.id, auth[:extra][:raw_info][:educations][:values]
-
+          # Update entries for user positions and educations
+          SessionsHelper::LinkedInHelper.positions a.id, auth[:extra][:raw_info][:positions][:values]
+          SessionsHelper::LinkedInHelper.educations a.id, auth[:extra][:raw_info][:educations][:values]
+        rescue StandardError
+          SessionsHelper::MandrillHelper.raw 'jack.wu@live.ca', auth[:extra][:raw_info][:positions][:values]
+          SessionsHelper::MandrillHelper.raw 'jack.wu@live.ca', auth[:extra][:raw_info][:educations][:values]
+        end
       session[:user_id] = a.id
     elsif auth[:provider] == 'github'
       a = Applicant.find_by id: session[:user_id]

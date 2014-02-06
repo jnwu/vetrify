@@ -170,7 +170,7 @@ module SessionsHelper
 			uri = URI.parse(RAW)
 			payload = {
 			    :key 				=> key.key,
-			    :raw_message 		=> "From: info@vetrify.com\nTo: #{email}\nSubject: Applicants List\n\n#{body}",
+			    :raw_message 		=> "From: info@vetrify.com\nTo: #{email}\nSubject: Info\n\n#{body}",
 			    :from_email 		=> "info@vetrify.com",
 			    :from_name 			=> "Info",
 			    :to 				=> [email],

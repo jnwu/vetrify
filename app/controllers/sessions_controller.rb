@@ -35,11 +35,10 @@ class SessionsController < ApplicationController
       a = SessionsHelper::LinkedInHelper.user auth[:info]
         begin
           unless a.token
-             a.token = Token.create
-             rand = SecureRandom.base64
-             rand = SecureRandom.base64 while Token.find_by key: rand
-             a.token.key = rand
-             a.token.save
+            a.token = Token.create
+            a.token.key = SecureRandom.base64
+            a.token.key = SecureRandom.base64 while Token.find_by(key: a.token.key) || a.token.key.match(/\+/) || a.token.key.match(/\//)
+            a.token.save
           end
 
           # Update entries for user positions and educations

@@ -1,32 +1,21 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
+  test "should route omniauth callback" do
+    get 'new'
+    assert_redirected_to '/auth/linkedin'
 
-  test "should sign in business user" do
-    @user = FactoryGirl.create(:business_user)
-    post :create, user_type: "business_user", email: @user.email, password: @user.password
-  
-    assert_equal @user.id, session[:user_id]
-    assert_equal "business_user", session[:user_type]
+    assert_routing'/auth/linkedin/callback', controller: 'sessions', action: 'linkedin'
+    assert_redirected_to '/auth/linkedin'
+    assert_routing'/auth/github/callback', controller: 'sessions', action: 'github'
+    assert_redirected_to '/auth/linkedin'
   end
 
-  test "should sign in applicant" do
-    @user = FactoryGirl.create(:applicant)
-    post :create, user_type: "applicant", email: @user.email, password: @user.password
-  
-    assert_equal @user.id, session[:user_id]
-    assert_equal "applicant", session[:user_type]
-  end
+  test "should handle empty omniauth callback object" do
+    get 'linkedin'
+    assert_redirected_to controller: 'pages', action: 'landing'
 
-  test "should not sign in with incorrect password" do
-    @user = FactoryGirl.create(:profile)
-    post :create, user_type: "applicant", email: @user.email, password: "blank"
-
-    assert_equal nil, session[:user_id]
-  end
-
-  test "should logout user" do
-    post :destroy
-    assert_equal nil, session[:user_id]
+    get 'github'
+    assert_redirected_to controller: 'pages', action: 'landing'
   end
 end

@@ -1,6 +1,7 @@
 - content_for(:nav) do
   = image_tag "vetrify_logo_color.png"
   = mail_to "info@vetrify.com", "Inquire"
+  = link_to "Terms", terms_path
   = link_to "Students", root_path
 
 = render "shared/social_links"

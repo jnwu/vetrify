@@ -6,7 +6,7 @@ Vetrify::Application.routes.draw do
 
   get '/auth/:provider/callback', to: 'sessions#auth_callback'
 
-  get 'terms_of_use' => 'pages#terms_of_use'
+  get 'terms' => 'pages#terms'
 
   get 'business' => 'pages#business_landing'
 

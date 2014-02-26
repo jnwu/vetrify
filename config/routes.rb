@@ -4,17 +4,19 @@ Vetrify::Application.routes.draw do
 
   resource :sessions, only: :new
 
-  get '/auth/:provider/callback', to: 'sessions#auth_callback'
+  get '/auth/linkedin/callback', to: 'sessions#linkedin'
+
+  get '/auth/github/callback', to: 'sessions#github'
 
   get 'terms' => 'pages#terms'
 
-  get 'business' => 'pages#business_landing'
+  get '/applicant', to: 'applicants#show'
 
-  get '/applicant', :to => 'applicants#show'
+  get '/applicant/:id', to: 'applicants#pry'
 
-  get '/applicant/:id', :to => 'applicants#pry'
+  post '/inquire', to: 'businesses#inquire'
 
-  post '/inquire', :to => 'businesses#inquire'
+  get 'business', to: 'pages#business_landing'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
